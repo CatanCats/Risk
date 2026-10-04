@@ -1,0 +1,503 @@
+{
+ "version": 1,
+ "seed": 20261004,
+ "rngState": 1693639223,
+ "players": [
+  {
+   "id": 0,
+   "name": "Claude",
+   "type": "claude",
+   "color": "#e04848",
+   "cards": [
+    {
+     "territory": "central_america",
+     "symbol": "artillery"
+    }
+   ],
+   "alive": true
+  },
+  {
+   "id": 1,
+   "name": "General Ash",
+   "type": "bot",
+   "color": "#3a7bd5",
+   "cards": [
+    {
+     "territory": "afghanistan",
+     "symbol": "infantry"
+    },
+    {
+     "territory": "brazil",
+     "symbol": "artillery"
+    }
+   ],
+   "alive": true
+  },
+  {
+   "id": 2,
+   "name": "Marshal Ivo",
+   "type": "bot",
+   "color": "#3fae5a",
+   "cards": [
+    {
+     "territory": "india",
+     "symbol": "infantry"
+    },
+    {
+     "territory": "peru",
+     "symbol": "cavalry"
+    }
+   ],
+   "alive": true
+  },
+  {
+   "id": 3,
+   "name": "Admiral Rook",
+   "type": "bot",
+   "color": "#e0a020",
+   "cards": [
+    {
+     "territory": "new_guinea",
+     "symbol": "infantry"
+    },
+    {
+     "territory": "yakutsk",
+     "symbol": "cavalry"
+    }
+   ],
+   "alive": true
+  }
+ ],
+ "owner": {
+  "great_britain": 1,
+  "east_africa": 1,
+  "yakutsk": 2,
+  "iceland": 3,
+  "afghanistan": 0,
+  "alberta": 2,
+  "new_guinea": 2,
+  "middle_east": 3,
+  "northern_europe": 0,
+  "peru": 0,
+  "ural": 2,
+  "ukraine": 3,
+  "eastern_australia": 0,
+  "greenland": 1,
+  "siam": 2,
+  "madagascar": 3,
+  "indonesia": 2,
+  "north_africa": 1,
+  "ontario": 3,
+  "quebec": 3,
+  "western_us": 0,
+  "siberia": 2,
+  "south_africa": 1,
+  "india": 3,
+  "brazil": 3,
+  "central_america": 1,
+  "western_europe": 2,
+  "eastern_us": 3,
+  "japan": 0,
+  "kamchatka": 1,
+  "irkutsk": 2,
+  "congo": 2,
+  "venezuela": 3,
+  "scandinavia": 3,
+  "northwest_territory": 2,
+  "argentina": 3,
+  "china": 0,
+  "western_australia": 1,
+  "alaska": 2,
+  "mongolia": 3,
+  "southern_europe": 0,
+  "egypt": 1
+ },
+ "armies": {
+  "great_britain": 2,
+  "east_africa": 2,
+  "yakutsk": 3,
+  "iceland": 3,
+  "afghanistan": 4,
+  "alberta": 3,
+  "new_guinea": 2,
+  "middle_east": 1,
+  "northern_europe": 3,
+  "peru": 2,
+  "ural": 2,
+  "ukraine": 2,
+  "eastern_australia": 3,
+  "greenland": 3,
+  "siam": 3,
+  "madagascar": 2,
+  "indonesia": 2,
+  "north_africa": 2,
+  "ontario": 4,
+  "quebec": 1,
+  "western_us": 4,
+  "siberia": 2,
+  "south_africa": 2,
+  "india": 3,
+  "brazil": 1,
+  "central_america": 1,
+  "western_europe": 1,
+  "eastern_us": 2,
+  "japan": 3,
+  "kamchatka": 3,
+  "irkutsk": 3,
+  "congo": 2,
+  "venezuela": 2,
+  "scandinavia": 2,
+  "northwest_territory": 3,
+  "argentina": 2,
+  "china": 2,
+  "western_australia": 2,
+  "alaska": 1,
+  "mongolia": 2,
+  "southern_europe": 2,
+  "egypt": 3
+ },
+ "turn": 3,
+ "current": 0,
+ "phase": "reinforce",
+ "pending": 3,
+ "conquered": false,
+ "conquest": null,
+ "tradeCount": 0,
+ "deck": [
+  {
+   "territory": "greenland",
+   "symbol": "artillery"
+  },
+  {
+   "territory": "alberta",
+   "symbol": "infantry"
+  },
+  {
+   "territory": "venezuela",
+   "symbol": "infantry"
+  },
+  {
+   "territory": "siberia",
+   "symbol": "infantry"
+  },
+  {
+   "territory": "irkutsk",
+   "symbol": "infantry"
+  },
+  {
+   "territory": "east_africa",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": "eastern_australia",
+   "symbol": "artillery"
+  },
+  {
+   "territory": "argentina",
+   "symbol": "infantry"
+  },
+  {
+   "territory": "western_europe",
+   "symbol": "artillery"
+  },
+  {
+   "territory": "indonesia",
+   "symbol": "artillery"
+  },
+  {
+   "territory": "alaska",
+   "symbol": "infantry"
+  },
+  {
+   "territory": "ontario",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": null,
+   "symbol": "wild"
+  },
+  {
+   "territory": "madagascar",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": "kamchatka",
+   "symbol": "artillery"
+  },
+  {
+   "territory": "japan",
+   "symbol": "artillery"
+  },
+  {
+   "territory": "eastern_us",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": "mongolia",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": "north_africa",
+   "symbol": "artillery"
+  },
+  {
+   "territory": "egypt",
+   "symbol": "infantry"
+  },
+  {
+   "territory": "congo",
+   "symbol": "artillery"
+  },
+  {
+   "territory": "siam",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": "south_africa",
+   "symbol": "infantry"
+  },
+  {
+   "territory": "western_australia",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": "china",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": "great_britain",
+   "symbol": "infantry"
+  },
+  {
+   "territory": "ural",
+   "symbol": "artillery"
+  },
+  {
+   "territory": "middle_east",
+   "symbol": "artillery"
+  },
+  {
+   "territory": "northern_europe",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": "ukraine",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": null,
+   "symbol": "wild"
+  },
+  {
+   "territory": "quebec",
+   "symbol": "artillery"
+  },
+  {
+   "territory": "northwest_territory",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": "southern_europe",
+   "symbol": "infantry"
+  },
+  {
+   "territory": "western_us",
+   "symbol": "infantry"
+  },
+  {
+   "territory": "iceland",
+   "symbol": "cavalry"
+  },
+  {
+   "territory": "scandinavia",
+   "symbol": "artillery"
+  }
+ ],
+ "discard": [],
+ "lastBattle": null,
+ "log": [
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "Game started with 4 players (seed 20261004)."
+  },
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "General Ash's turn: 3 reinforcements."
+  },
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "General Ash placed 3 on Alberta."
+  },
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "General Ash conquered Ontario from Alberta (defender had 1)."
+  },
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "General Ash conquered Great Britain from Scandinavia (defender had 2)."
+  },
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "General Ash earned a card."
+  },
+  {
+   "turn": 1,
+   "player": 2,
+   "text": "Marshal Ivo's turn: 3 reinforcements."
+  },
+  {
+   "turn": 1,
+   "player": 2,
+   "text": "Marshal Ivo placed 3 on Siam."
+  },
+  {
+   "turn": 1,
+   "player": 2,
+   "text": "Marshal Ivo conquered Indonesia from Siam (defender had 1)."
+  },
+  {
+   "turn": 1,
+   "player": 2,
+   "text": "Marshal Ivo conquered Alberta from Alaska (defender had 2)."
+  },
+  {
+   "turn": 1,
+   "player": 2,
+   "text": "Marshal Ivo conquered Congo from South Africa (defender had 2)."
+  },
+  {
+   "turn": 1,
+   "player": 2,
+   "text": "Marshal Ivo earned a card."
+  },
+  {
+   "turn": 1,
+   "player": 3,
+   "text": "Admiral Rook's turn: 3 reinforcements."
+  },
+  {
+   "turn": 1,
+   "player": 3,
+   "text": "Admiral Rook placed 3 on Iceland."
+  },
+  {
+   "turn": 1,
+   "player": 3,
+   "text": "Admiral Rook conquered Scandinavia from Iceland (defender had 1)."
+  },
+  {
+   "turn": 1,
+   "player": 3,
+   "text": "Admiral Rook conquered Ontario from Quebec (defender had 1)."
+  },
+  {
+   "turn": 1,
+   "player": 3,
+   "text": "Admiral Rook earned a card."
+  },
+  {
+   "turn": 2,
+   "player": 0,
+   "text": "Claude's turn: 3 reinforcements."
+  },
+  {
+   "turn": 2,
+   "player": 0,
+   "text": "Claude placed 3 on Brazil."
+  },
+  {
+   "turn": 2,
+   "player": 0,
+   "text": "Claude attacked Peru from Brazil: lost 4, killed 3 and CONQUERED it."
+  },
+  {
+   "turn": 2,
+   "player": 0,
+   "text": "Claude moved 2 into Peru."
+  },
+  {
+   "turn": 2,
+   "player": 0,
+   "text": "Claude earned a card."
+  },
+  {
+   "turn": 2,
+   "player": 1,
+   "text": "General Ash's turn: 3 reinforcements."
+  },
+  {
+   "turn": 2,
+   "player": 1,
+   "text": "General Ash placed 3 on East Africa."
+  },
+  {
+   "turn": 2,
+   "player": 1,
+   "text": "General Ash conquered South Africa from East Africa (defender had 1)."
+  },
+  {
+   "turn": 2,
+   "player": 1,
+   "text": "General Ash earned a card."
+  },
+  {
+   "turn": 2,
+   "player": 2,
+   "text": "Marshal Ivo's turn: 3 reinforcements."
+  },
+  {
+   "turn": 2,
+   "player": 2,
+   "text": "Marshal Ivo placed 3 on Ural."
+  },
+  {
+   "turn": 2,
+   "player": 2,
+   "text": "Marshal Ivo conquered Siberia from Ural (defender had 2)."
+  },
+  {
+   "turn": 2,
+   "player": 2,
+   "text": "Marshal Ivo earned a card."
+  },
+  {
+   "turn": 2,
+   "player": 3,
+   "text": "Admiral Rook's turn: 3 reinforcements."
+  },
+  {
+   "turn": 2,
+   "player": 3,
+   "text": "Admiral Rook placed 3 on Argentina."
+  },
+  {
+   "turn": 2,
+   "player": 3,
+   "text": "Admiral Rook conquered Brazil from Argentina (defender had 1)."
+  },
+  {
+   "turn": 2,
+   "player": 3,
+   "text": "Admiral Rook conquered Venezuela from Brazil (defender had 2)."
+  },
+  {
+   "turn": 2,
+   "player": 3,
+   "text": "Admiral Rook earned a card."
+  },
+  {
+   "turn": 3,
+   "player": 0,
+   "text": "Claude's turn: 3 reinforcements."
+  }
+ ],
+ "winner": null,
+ "createdAt": "2026-10-04T07:16:34.369Z",
+ "updatedAt": "2026-10-04T07:16:47.208Z"
+}

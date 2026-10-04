@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Risk War Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&family=JetBrains+Mono:wght@600&display=swap">
+<style>
+/* Layout: chart-table map on the left, a dispatch column of orders/intel on the right; stacks on phones. */
+:root {
+  --bg: #e1e9e8; --surface: #f3f7f6; --sea: #cddbda; --ink: #13262b; --muted: #546a6e;
+  --line: #b3c4c3; --accent: #8f6216; --accent-ink: #fffaf0; --danger: #ad3424; --good: #2c7647;
+  --land-alpha: 0.30; --node-stroke: #13262b;
+  --display: 'Saira Stencil One', 'Impact', 'Arial Narrow', sans-serif;
+  --body: 'Barlow', 'Segoe UI', system-ui, sans-serif;
+  --label: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1b20; --surface: #14272d; --sea: #0f242a; --ink: #e2ebe8; --muted: #8aa1a3;
+  --line: #29434a; --accent: #d9a445; --accent-ink: #1b1205; --danger: #e2654f; --good: #5cbf7c;
+  --land-alpha: 0.24; --node-stroke: #e2ebe8; color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #0d1b20; --surface: #14272d; --sea: #0f242a; --ink: #e2ebe8; --muted: #8aa1a3;
+  --line: #29434a; --accent: #d9a445; --accent-ink: #1b1205; --danger: #e2654f; --good: #5cbf7c;
+  --land-alpha: 0.24; --node-stroke: #e2ebe8; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--body); }
+button, input, select { font: inherit; color: inherit; }
+.app { display: flex; flex-direction: column; min-height: 100%; padding-inline: 16px; padding-block: 12px 20px; gap: 12px; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+h1 { font: 28px/1 var(--display); letter-spacing: 0.04em; margin: 0; }
+h1 span { color: var(--accent); }
+.tabs { display: flex; gap: 4px; padding: 3px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.tabs button { border: 0; background: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-family: var(--label); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.tabs button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.spacer { flex: 1; }
+.btn { border: 1px solid var(--line); background: var(--surface); padding: 7px 14px; border-radius: 6px; cursor: pointer; font-family: var(--label); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.danger { color: var(--danger); }
+.btn:disabled { opacity: 0.45; cursor: default; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+main { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
+@media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); } }
+.map-wrap { background: var(--sea); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; position: relative; }
+svg.map { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.land { opacity: var(--land-alpha); }
+.edge { stroke: var(--muted); stroke-width: 1.2; opacity: 0.55; fill: none; }
+.edge.sea { stroke-dasharray: 4 4; }
+.cont-label { font: 600 13px var(--label); letter-spacing: 0.18em; text-transform: uppercase; fill: var(--muted); opacity: 0.8; }
+.node { cursor: pointer; }
+.node circle.body { stroke: var(--node-stroke); stroke-width: 1.5; transition: fill 0.25s; }
+.node text.n { font: 600 13px var(--mono); fill: #fff; text-anchor: middle; dominant-baseline: central; pointer-events: none; paint-order: stroke; stroke: rgba(0,0,0,0.35); stroke-width: 2px; }
+.node text.lbl { font: 500 10.5px var(--label); fill: var(--ink); text-anchor: middle; pointer-events: none; letter-spacing: 0.02em; }
+.node circle.ring { fill: none; stroke: transparent; stroke-width: 3; }
+.node.sel circle.ring { stroke: var(--accent); }
+.node.tgt circle.ring { stroke: var(--danger); stroke-dasharray: 4 3; }
+.node.tgt.friendly circle.ring { stroke: var(--good); }
+.node.hit circle.ring { stroke: var(--danger); stroke-dasharray: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .node.tgt circle.ring { animation: march 1s linear infinite; }
+  @keyframes march { to { stroke-dashoffset: -14; } }
+}
+.map-note { position: absolute; left: 12px; bottom: 10px; font: 500 13px var(--label); color: var(--muted); letter-spacing: 0.03em; max-width: calc(100% - 24px); }
+aside { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.eyebrow { font: 600 12px var(--label); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.who { display: flex; align-items: center; gap: 10px; }
+.who strong { font: 20px/1.1 var(--display); letter-spacing: 0.03em; }
+.dot { width: 12px; height: 12px; border-radius: 50%; flex: none; border: 1px solid var(--node-stroke); }
+.steps { display: flex; gap: 4px; }
+.steps span { flex: 1; text-align: center; padding: 4px 0; border-radius: 4px; font: 600 13px var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); }
+.steps span.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.hint { color: var(--muted); font-size: 14px; margin: 0; }
+.err { color: var(--danger); font-size: 14px; margin: 0; }
+.big { font: 32px/1 var(--display); color: var(--accent); }
+.dice { display: flex; gap: 6px; align-items: center; font: 600 15px var(--mono); }
+.die { width: 30px; height: 30px; border-radius: 6px; display: grid; place-items: center; }
+.die.a { background: var(--danger); color: #fff; }
+.die.d { background: var(--ink); color: var(--surface); }
+.dice small { font: 500 13px var(--label); color: var(--muted); margin-inline: 4px; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 14px; }
+th { font: 600 12px var(--label); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: right; padding: 2px 4px; }
+th:first-child, td:first-child { text-align: left; }
+td { padding: 4px; text-align: right; border-top: 1px solid var(--line); }
+td .who { gap: 6px; }
+tr.cur td { font-weight: 600; }
+tr.dead td { opacity: 0.45; text-decoration: line-through; }
+.cards { display: flex; flex-wrap: wrap; gap: 6px; }
+.card { border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: 500 13px var(--label); cursor: pointer; background: var(--bg); min-width: 0; }
+.card[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.card b { display: block; font: 600 11px var(--label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.log { list-style: none; margin: 0; padding: 0; max-height: 260px; overflow-y: auto; font-size: 13.5px; display: flex; flex-direction: column; gap: 4px; }
+.log li { display: flex; gap: 8px; }
+.log li span:first-child { font: 600 12px var(--mono); color: var(--muted); flex: none; padding-top: 1px; }
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+dialog { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); padding: 20px; width: min(420px, calc(100vw - 32px)); }
+dialog::backdrop { background: rgba(5, 15, 18, 0.55); }
+dialog form { display: flex; flex-direction: column; gap: 14px; }
+dialog h2 { font: 24px var(--display); margin: 0; letter-spacing: 0.03em; }
+label { display: flex; flex-direction: column; gap: 4px; font: 600 13px var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+label input, label select { font: 400 15px var(--body); letter-spacing: 0; text-transform: none; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+.banner { font: 22px var(--display); color: var(--accent); letter-spacing: 0.03em; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>RISK <span>War Room</span></h1>
+    <div class="tabs" role="group" aria-label="Which game to show">
+      <button id="tab-local" aria-pressed="true">Your game</button>
+      <button id="tab-campaign" aria-pressed="false">Claude's campaign</button>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn" id="new-game">New game</button>
+  </header>
+  <main>
+    <div class="map-wrap">
+      <svg class="map" id="map" viewBox="0 0 1000 620" role="img" aria-label="World map of 42 territories"></svg>
+      <div class="map-note" id="map-note"></div>
+    </div>
+    <aside id="side"></aside>
+  </main>
+</div>
+<dialog id="setup">
+  <form id="setup-form">
+    <h2>New campaign</h2>
+    <label for="cmd-name">Commander name<input id="cmd-name" maxlength="16" value="You"></label>
+    <label for="cmd-bots">AI opponents
+      <select id="cmd-bots"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select>
+    </label>
+    <div class="row"><button class="btn primary" type="submit">Deploy</button><button class="btn" type="button" id="setup-cancel">Cancel</button></div>
+  </form>
+</dialog>
+<script type="module" src="src/ui.js"></script>
+</body>
+</html>

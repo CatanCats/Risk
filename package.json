@@ -1,0 +1,12 @@
+{
+  "name": "risk",
+  "version": "1.0.0",
+  "description": "A browser-based world-conquest strategy game inspired by Risk, with AI opponents.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test test/*.test.js",
+    "risk": "node cli/risk.mjs"
+  },
+  "license": "GPL-3.0"
+}
