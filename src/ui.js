@@ -241,8 +241,10 @@ function ordersHtml(s) {
   if (s.phase === 'reinforce') {
     const mustTrade = p.cards.length >= 5;
     const amt = (v, l) => `<button class="btn${ui.amount === v ? ' primary' : ''}" data-a="amt" data-v="${v}">${l}</button>`;
+    const best = E.bestSet(s);
     return `<div class="row"><span class="big">${s.pending}</span><span class="hint">armies to place</span></div>
-      ${mustTrade ? '<p class="err">You hold 5 cards. Trade a set below before placing.</p>' : ''}
+      ${mustTrade ? '<p class="err">You hold 5 cards, so you must trade a set before placing.</p>' : ''}
+      ${best ? `<div class="row"><button class="btn${mustTrade ? ' primary' : ''}" data-a="tradebest">Trade cards for +${best.value} armies</button></div>` : ''}
       <div class="row">${amt(1, '+1')}${amt(3, '+3')}${amt('all', 'All')}</div>${undoBtn(s)}${err}`;
   }
   if (s.phase === 'attack') {
@@ -342,6 +344,7 @@ function onSideClick(e) {
     else if (ui.picked.size < 3) ui.picked.add(i);
     return render();
   }
+  if (a === 'tradebest') return act(() => { E.tradeCards(s, E.bestSet(s).indices); ui.picked.clear(); });
   if (a === 'trade') return act(() => { E.tradeCards(s, [...ui.picked]); ui.picked.clear(); });
   if (a === 'roll') return act(() => { E.attack(s, ui.sel, ui.target, 3); afterBattle(s); });
   if (a === 'blitz') return act(() => { E.blitz(s, ui.sel, ui.target, 1); afterBattle(s); });

@@ -139,6 +139,20 @@ export function validSets(cards) {
   return out;
 }
 
+/** The most valuable set in the current player's hand (indices), preferring ones that earn the +2 bonus. */
+export function bestSet(s) {
+  const p = currentPlayer(s);
+  let best = null;
+  for (const set of validSets(p.cards)) {
+    const cards = set.map((i) => p.cards[i]);
+    const score = setValue(s, cards) * 10
+      + (cards.some((c) => c.territory && s.owner[c.territory] === p.id) ? 5 : 0)
+      - cards.filter((c) => c.symbol === 'wild').length;
+    if (!best || score > best.score) best = { set, score, value: setValue(s, cards) };
+  }
+  return best && { indices: best.set, value: best.value };
+}
+
 /** Territories reachable from `from` through territories owned by the same player. */
 export function connectedOwned(s, from) {
   const pid = s.owner[from];
