@@ -170,7 +170,20 @@
    "territory": "china"
   }
  ],
- "discard": [],
+ "discard": [
+  {
+   "symbol": "artillery",
+   "territory": "kamchatka"
+  },
+  {
+   "symbol": "cavalry",
+   "territory": "ontario"
+  },
+  {
+   "symbol": "infantry",
+   "territory": "alaska"
+  }
+ ],
  "lastBattle": null,
  "log": [
   {
@@ -1914,104 +1927,109 @@
    "turn": 12
   },
   {
-   "turn": 12,
    "player": 1,
-   "text": "Claude placed 3 on Western US."
+   "text": "Claude placed 3 on Western US.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 1,
-   "text": "Claude attacked Alberta from Western US: lost 4, killed 3 and CONQUERED it."
+   "text": "Claude attacked Alberta from Western US: lost 4, killed 3 and CONQUERED it.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 1,
-   "text": "Claude moved 1 into Alberta."
+   "text": "Claude moved 1 into Alberta.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 1,
-   "text": "Claude earned a card."
+   "text": "Claude earned a card.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 2,
-   "text": "General Ash's turn: 9 reinforcements."
+   "text": "General Ash's turn: 9 reinforcements.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 2,
-   "text": "General Ash placed 3 on Southern Europe."
+   "text": "General Ash placed 3 on Southern Europe.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 2,
-   "text": "General Ash placed 3 on Ukraine."
+   "text": "General Ash placed 3 on Ukraine.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 2,
-   "text": "General Ash placed 3 on China."
+   "text": "General Ash placed 3 on China.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 2,
-   "text": "General Ash conquered India from China (defender had 1)."
+   "text": "General Ash conquered India from China (defender had 1).",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 2,
-   "text": "General Ash conquered Ural from Ukraine (defender had 4)."
+   "text": "General Ash conquered Ural from Ukraine (defender had 4).",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 2,
-   "text": "General Ash earned a card."
+   "text": "General Ash earned a card.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 3,
-   "text": "Marshal Ivo's turn: 3 reinforcements."
+   "text": "Marshal Ivo's turn: 3 reinforcements.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 3,
-   "text": "Marshal Ivo placed 3 on Siberia."
+   "text": "Marshal Ivo placed 3 on Siberia.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 3,
-   "text": "Marshal Ivo conquered China from Siberia (defender had 1)."
+   "text": "Marshal Ivo conquered China from Siberia (defender had 1).",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 3,
-   "text": "Marshal Ivo conquered Ukraine from Afghanistan (defender had 1)."
+   "text": "Marshal Ivo conquered Ukraine from Afghanistan (defender had 1).",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 3,
-   "text": "Marshal Ivo conquered Ural from China (defender had 2)."
+   "text": "Marshal Ivo conquered Ural from China (defender had 2).",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 3,
-   "text": "Marshal Ivo conquered Scandinavia from Ukraine (defender had 1)."
+   "text": "Marshal Ivo conquered Scandinavia from Ukraine (defender had 1).",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 3,
-   "text": "Marshal Ivo fortified Afghanistan with 4 from Mongolia."
+   "text": "Marshal Ivo fortified Afghanistan with 4 from Mongolia.",
+   "turn": 12
   },
   {
-   "turn": 12,
    "player": 3,
-   "text": "Marshal Ivo earned a card."
+   "text": "Marshal Ivo earned a card.",
+   "turn": 12
+  },
+  {
+   "player": 0,
+   "text": "You's turn: 8 reinforcements.",
+   "turn": 13
   },
   {
    "turn": 13,
    "player": 0,
-   "text": "You's turn: 8 reinforcements."
+   "text": "You traded cards for 10 armies. (traded by Claude at your request)"
   }
  ],
  "owner": {
@@ -2058,25 +2076,13 @@
   "western_us": 1,
   "yakutsk": 3
  },
- "pending": 8,
+ "pending": 18,
  "phase": "reinforce",
  "placements": [],
  "players": [
   {
    "alive": true,
    "cards": [
-    {
-     "symbol": "infantry",
-     "territory": "alaska"
-    },
-    {
-     "symbol": "cavalry",
-     "territory": "ontario"
-    },
-    {
-     "symbol": "artillery",
-     "territory": "kamchatka"
-    },
     {
      "symbol": "cavalry",
      "territory": "western_australia"
@@ -2155,12 +2161,12 @@
    "type": "bot"
   }
  ],
- "rev": 220,
+ "rev": 238,
  "rngState": -768209067,
  "seed": 3,
- "tradeCount": 11,
+ "tradeCount": 12,
  "turn": 13,
- "updatedAt": "2026-10-04T09:34:56.433Z",
+ "updatedAt": "2026-10-04T09:40:11.170Z",
  "version": 1,
  "winner": null
 }

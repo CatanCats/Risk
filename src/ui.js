@@ -244,7 +244,7 @@ function ordersHtml(s) {
     const best = E.bestSet(s);
     return `<div class="row"><span class="big">${s.pending}</span><span class="hint">armies to place</span></div>
       ${mustTrade ? '<p class="err">You hold 5 cards, so you must trade a set before placing.</p>' : ''}
-      ${best ? `<div class="row"><button class="btn${mustTrade ? ' primary' : ''}" data-a="tradebest">Trade cards for +${best.value} armies</button></div>` : ''}
+      ${best ? `<div class="row"><button class="btn${mustTrade ? ' primary' : ''}" data-a="tradebest">Trade ${best.indices.map((i) => E.currentPlayer(s).cards[i].symbol).join(' + ')} for +${best.value}</button></div>` : ''}
       <div class="row">${amt(1, '+1')}${amt(3, '+3')}${amt('all', 'All')}</div>${undoBtn(s)}${err}`;
   }
   if (s.phase === 'attack') {
