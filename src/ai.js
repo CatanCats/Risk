@@ -3,7 +3,7 @@
 import { ADJ, CONTINENTS, CONTINENT_TERRITORIES, TERRITORIES } from './map.js';
 import {
   attack, connectedOwned, currentPlayer, endAttack, endTurn, fortify, moveIn, place,
-  territoriesOf, tradeCards, validSets,
+  setValue, territoriesOf, tradeCards, validSets,
 } from './engine.js';
 
 const enemiesAround = (s, t) => ADJ[t].filter((n) => s.owner[n] !== s.owner[t]);
@@ -28,7 +28,8 @@ function tradeIfUseful(s) {
       const c = p.cards[i];
       return a + (c.symbol === 'wild' ? -2 : 0) + (c.territory && s.owner[c.territory] === p.id ? 1 : 0);
     }, 0);
-    sets.sort((a, b) => score(b) - score(a));
+    const value = (set) => setValue(s, set.map((i) => p.cards[i]));
+    sets.sort((a, b) => value(b) - value(a) || score(b) - score(a));
     tradeCards(s, sets[0]);
   }
 }

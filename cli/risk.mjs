@@ -55,7 +55,7 @@ function status(s) {
     if (en.length) out.push(`  ${t} ${s.armies[t]} -> ${en.map((n) => `${n}(${s.owner[n]}:${s.armies[n]})`).join(' ')}`);
   }
   out.push('', `Cards: ${p.cards.map((c, i) => `[${i}] ${c.symbol}${c.territory ? ':' + c.territory : ''}`).join('  ') || 'none'}`
-    + `  | next trade worth ${E.tradeValue(s.tradeCount)}`);
+    + `  | ${E.cardValueText(s)}`);
   if (s.conquest) out.push(`Pending move: ${s.conquest.from} -> ${s.conquest.to}, choose ${s.conquest.min}..${s.conquest.max} (move N)`);
   return out.join('\n');
 }

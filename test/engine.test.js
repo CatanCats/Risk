@@ -35,6 +35,32 @@ test('card sets and trade values', () => {
   assert.deepEqual([0, 1, 2, 3, 4, 5, 6, 7].map(E.tradeValue), [4, 6, 8, 10, 12, 15, 20, 25]);
 });
 
+test('fixed card values follow the symbols', () => {
+  const s = game(2, 5);
+  const c = (symbol) => ({ symbol, territory: null });
+  assert.equal(s.cardMode, 'fixed');
+  assert.equal(E.setValue(s, [c('infantry'), c('infantry'), c('infantry')]), 4);
+  assert.equal(E.setValue(s, [c('cavalry'), c('cavalry'), c('wild')]), 6);
+  assert.equal(E.setValue(s, [c('artillery'), c('artillery'), c('artillery')]), 8);
+  assert.equal(E.setValue(s, [c('infantry'), c('cavalry'), c('artillery')]), 10);
+  assert.equal(E.setValue(s, [c('infantry'), c('wild'), c('wild')]), 10);
+  assert.equal(E.setValue({ ...s, cardMode: 'progressive', tradeCount: 6 }, [c('infantry'), c('infantry'), c('infantry')]), 20);
+});
+
+test('placements can be undone until a battle', () => {
+  const s = game(2, 9);
+  const t = TERRITORY_IDS.find((x) => s.owner[x] === s.current);
+  const before = s.armies[t];
+  const pending = s.pending;
+  E.place(s, t, pending);
+  assert.equal(s.phase, 'attack');
+  E.undoPlace(s);
+  assert.equal(s.armies[t], before);
+  assert.equal(s.pending, pending);
+  assert.equal(s.phase, 'reinforce');
+  assert.throws(() => E.undoPlace(s), E.RuleError);
+});
+
 test('placing, attacking and conquering follow the rules', () => {
   const s = game(2, 3);
   const me = s.current;

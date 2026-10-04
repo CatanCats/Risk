@@ -32,12 +32,13 @@ function log(s, text, extra) {
 }
 
 // ---------- setup ----------
-export function createGame({ players, seed = Date.now() % 2147483647 }) {
+export function createGame({ players, seed = Date.now() % 2147483647, cardMode = 'fixed' }) {
   if (!Array.isArray(players) || players.length < 2 || players.length > 6) fail('Need 2-6 players');
   const s = {
     version: 1,
     seed,
     rngState: seed | 0,
+    cardMode, // 'fixed' (set value by symbols) | 'progressive' (4, 6, 8, ... per trade)
     players: players.map((p, i) => ({
       id: i,
       name: p.name || `Player ${i + 1}`,
@@ -101,6 +102,25 @@ export function tradeValue(count) {
   return count < table.length ? table[count] : 15 + 5 * (count - table.length + 1);
 }
 
+/** Fixed card values, as in the Risk: Global Domination "fixed" mode. */
+export const FIXED_VALUES = { infantry: 4, cavalry: 6, artillery: 8, mixed: 10 };
+
+/** Armies a valid set is worth in this game. Wilds count as whatever is best. */
+export function setValue(s, cards) {
+  if ((s.cardMode ?? 'progressive') === 'progressive') return tradeValue(s.tradeCount);
+  const wilds = cards.filter((c) => c.symbol === 'wild').length;
+  const kinds = new Set(cards.filter((c) => c.symbol !== 'wild').map((c) => c.symbol));
+  if (wilds < 2 && kinds.size === 1) return FIXED_VALUES[[...kinds][0]];
+  return FIXED_VALUES.mixed;
+}
+
+/** One-line description of what sets are worth, for status displays. */
+export function cardValueText(s) {
+  return (s.cardMode ?? 'progressive') === 'progressive'
+    ? `next set worth ${tradeValue(s.tradeCount)}`
+    : 'sets: 3 infantry 4, 3 cavalry 6, 3 artillery 8, one of each 10';
+}
+
 export function isValidSet(cards) {
   if (cards.length !== 3) return false;
   const wilds = cards.filter((c) => c.symbol === 'wild').length;
@@ -153,6 +173,7 @@ function startTurn(s) {
   s.conquest = null;
   s.lastBattle = null;
   s.pending = reinforcementCount(s, p.id);
+  s.placements = [];
   log(s, `${p.name}'s turn: ${s.pending} reinforcements.`);
 }
 
@@ -165,7 +186,8 @@ export function tradeCards(s, indices) {
   if (!isValidSet(cards)) fail('Those cards are not a valid set (3 of a kind, one of each, or any with a wild)');
   for (const i of idx) p.cards.splice(i, 1);
   s.discard.push(...cards);
-  const value = tradeValue(s.tradeCount++);
+  const value = setValue(s, cards);
+  s.tradeCount++;
   s.pending += value;
   let msg = `${p.name} traded cards for ${value} armies`;
   const bonusT = cards.find((c) => c.territory && s.owner[c.territory] === p.id);
@@ -187,8 +209,20 @@ export function place(s, territory, count = 1) {
   if (!Number.isInteger(count) || count < 1 || count > s.pending) fail(`Place between 1 and ${s.pending} armies`);
   s.armies[territory] += count;
   s.pending -= count;
+  (s.placements ??= []).push({ territory, count });
   log(s, `${p.name} placed ${count} on ${name(territory)}.`);
   if (s.pending === 0) s.phase = 'attack';
+}
+
+/** Take back the most recent placement, as long as no battle has happened since. */
+export function undoPlace(s) {
+  checkPhase(s, 'reinforce', 'attack');
+  const last = s.placements?.pop();
+  if (!last) fail('Nothing to undo');
+  s.armies[last.territory] -= last.count;
+  s.pending += last.count;
+  s.phase = 'reinforce';
+  log(s, `${currentPlayer(s).name} took back ${last.count} from ${name(last.territory)}.`);
 }
 
 /** Roll one round of combat. Returns details of the dice. */
@@ -202,6 +236,7 @@ export function attack(s, from, to, dice = 3, { quiet = false } = {}) {
   if (!ADJ[from].includes(to)) fail(`${name(from)} does not border ${name(to)}`);
   if (s.armies[from] < 2) fail(`${name(from)} needs at least 2 armies to attack`);
   const defenderId = s.owner[to];
+  s.placements = []; // a battle locks in this turn's placements
   const a = Math.max(1, Math.min(Number(dice) || 3, 3, s.armies[from] - 1));
   const d = Math.min(2, s.armies[to]);
   const ar = Array.from({ length: a }, () => rollDie(s)).sort((x, y) => y - x);

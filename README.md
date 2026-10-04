@@ -21,10 +21,12 @@ Any static host works too (GitHub Pages, `python3 -m http.server`); ES modules n
 - 42 territories in 6 continents. Territories are dealt randomly and starting armies placed randomly.
 - **Reinforce**: `max(3, territories / 3)` armies, plus continent bonuses
   (Asia 7, North America 5, Europe 5, Africa 3, South America 2, Australia 2).
-- **Cards**: conquer at least one territory in a turn to earn a card. Trade 3 alike, one of each, or any set with a wild
-  for 4, 6, 8, 10, 12, 15, then +5 each time. A card showing a territory you own gives +2 armies there.
+- **Cards**: conquer at least one territory in a turn to earn a card. Trade 3 alike, one of each, or any set with a wild.
+  Sets have fixed values (as in Risk: Global Domination's fixed mode): 3 infantry 4, 3 cavalry 6, 3 artillery 8,
+  one of each 10. A card showing a territory you own gives +2 armies there.
   You must trade when holding 5 or more. Eliminating a player gives you their cards.
 - **Attack**: up to 3 attacker dice vs up to 2 defender dice; ties go to the defender. Blitz rolls until the territory falls.
+- **Undo**: you can take back placements until your first battle of the turn.
 - **Fortify**: one move along a chain of your own territories, then the turn ends.
 - Conquer all 42 territories to win.
 

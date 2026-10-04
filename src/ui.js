@@ -223,6 +223,11 @@ function diceHtml(b) {
   return `<div class="dice" aria-label="Last battle dice">${b.attacker.map((v) => d(v, 'a')).join('')}<small>vs</small>${b.defender.map((v) => d(v, 'd')).join('')}</div>`;
 }
 
+function undoBtn(s) {
+  const last = s.placements?.at(-1);
+  return last ? `<div class="row"><button class="btn" data-a="undo">Undo: take ${last.count} back from ${esc(tname(last.territory))}</button></div>` : '';
+}
+
 function ordersHtml(s) {
   const p = E.currentPlayer(s);
   if (s.winner !== null) return `<div class="banner">${esc(s.players[s.winner].name)} rules the world.</div>${ui.mode === 'local' ? '<div class="row"><button class="btn primary" data-a="new">Play again</button></div>' : '<p class="hint">Ask Claude in your session to start a rematch.</p>'}`;
@@ -238,7 +243,7 @@ function ordersHtml(s) {
     const amt = (v, l) => `<button class="btn${ui.amount === v ? ' primary' : ''}" data-a="amt" data-v="${v}">${l}</button>`;
     return `<div class="row"><span class="big">${s.pending}</span><span class="hint">armies to place</span></div>
       ${mustTrade ? '<p class="err">You hold 5 cards. Trade a set below before placing.</p>' : ''}
-      <div class="row">${amt(1, '+1')}${amt(3, '+3')}${amt('all', 'All')}</div>${err}`;
+      <div class="row">${amt(1, '+1')}${amt(3, '+3')}${amt('all', 'All')}</div>${undoBtn(s)}${err}`;
   }
   if (s.phase === 'attack') {
     const ready = ui.sel && ui.target;
@@ -246,7 +251,7 @@ function ordersHtml(s) {
       <div class="row"><button class="btn primary" data-a="roll" ${ready ? '' : 'disabled'}>Roll dice</button>
       <button class="btn" data-a="blitz" ${ready ? '' : 'disabled'}>Blitz</button>
       <button class="btn" data-a="endattack">Done attacking: move troops</button>
-      ${ui.sel ? '<button class="btn" data-a="clear">Clear selection</button>' : ''}</div>${diceHtml(s.lastBattle)}${err}`;
+      ${ui.sel ? '<button class="btn" data-a="clear">Clear selection</button>' : ''}</div>${undoBtn(s)}${diceHtml(s.lastBattle)}${err}`;
   }
   if (s.phase === 'conquer') {
     const c = s.conquest;
@@ -282,12 +287,14 @@ function cardsHtml(s) {
   const me = s.players.find((p) => p.type === 'human');
   if (!me) return '';
   const interactive = canDrive(s);
-  const canTrade = myTurn() && s.phase === 'reinforce' && ui.picked.size === 3;
+  const pickedCards = [...ui.picked].map((i) => me.cards[i]).filter(Boolean);
+  const pickedOk = pickedCards.length === 3 && E.isValidSet(pickedCards);
+  const canTrade = myTurn() && s.phase === 'reinforce' && pickedOk;
   const cards = me.cards.map((c, i) => `<button class="card" data-a="card" data-v="${i}" aria-pressed="${ui.picked.has(i)}" ${interactive ? '' : 'disabled'}>
     <b>${c.symbol}</b>${c.territory ? esc(tname(c.territory)) : 'Any'}</button>`).join('');
-  return `<section class="panel"><div class="eyebrow">Your cards · next set worth ${E.tradeValue(s.tradeCount)}</div>
+  return `<section class="panel"><div class="eyebrow">Your cards</div><p class="hint">${esc(E.cardValueText(s).replace(/^./, (c) => c.toUpperCase()))}</p>
     <div class="cards">${cards || '<span class="hint">No cards yet. Conquer a territory in a turn to earn one.</span>'}</div>
-    ${interactive && me.cards.length >= 3 ? `<div class="row"><button class="btn" data-a="trade" ${canTrade ? '' : 'disabled'}>Trade selected</button><span class="hint">3 alike, 3 different, or any with a wild</span></div>` : ''}</section>`;
+    ${interactive && me.cards.length >= 3 ? `<div class="row"><button class="btn" data-a="trade" ${canTrade ? '' : 'disabled'}>Trade selected${pickedOk ? ` (+${E.setValue(s, pickedCards)})` : ''}</button><span class="hint">3 alike, 3 different, or any with a wild</span></div>` : ''}</section>`;
 }
 
 function logHtml(s) {
@@ -338,6 +345,7 @@ function onSideClick(e) {
   if (a === 'trade') return act(() => { E.tradeCards(s, [...ui.picked]); ui.picked.clear(); });
   if (a === 'roll') return act(() => { E.attack(s, ui.sel, ui.target, 3); afterBattle(s); });
   if (a === 'blitz') return act(() => { E.blitz(s, ui.sel, ui.target, 1); afterBattle(s); });
+  if (a === 'undo') return act(() => { E.undoPlace(s); resetSelection(); });
   if (a === 'clear') { resetSelection(); return render(); }
   if (a === 'endattack') return act(() => { E.endAttack(s); resetSelection(); });
   if (a === 'movein') return act(() => { E.moveIn(s, Number($('move-range').value)); ui.moveN = undefined; resetSelection(); });
