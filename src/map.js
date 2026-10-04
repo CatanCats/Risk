@@ -1,11 +1,11 @@
 // Classic 42-territory world map. Coordinates are for a 1000x620 SVG viewBox.
 
 export const CONTINENTS = {
-  north_america: { name: 'North America', bonus: 5, color: '#d9b84a' },
+  north_america: { name: 'North America', bonus: 4, color: '#d9b84a' },
   south_america: { name: 'South America', bonus: 2, color: '#c8643c' },
   europe: { name: 'Europe', bonus: 5, color: '#4f7cc4' },
   africa: { name: 'Africa', bonus: 3, color: '#a0703c' },
-  asia: { name: 'Asia', bonus: 7, color: '#4f9a5a' },
+  asia: { name: 'Asia', bonus: 8, color: '#4f9a5a' },
   australia: { name: 'Australia', bonus: 2, color: '#9a5ab0' },
 };
 
