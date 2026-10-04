@@ -1,330 +1,454 @@
 {
- "version": 1,
- "seed": 3,
- "rngState": -2102483198,
- "players": [
-  {
-   "id": 0,
-   "name": "You",
-   "type": "human",
-   "color": "#e04848",
-   "cards": [],
-   "alive": true
-  },
-  {
-   "id": 1,
-   "name": "Claude",
-   "type": "claude",
-   "color": "#3a7bd5",
-   "cards": [],
-   "alive": true
-  },
-  {
-   "id": 2,
-   "name": "General Ash",
-   "type": "bot",
-   "color": "#3fae5a",
-   "cards": [],
-   "alive": true
-  },
-  {
-   "id": 3,
-   "name": "Marshal Ivo",
-   "type": "bot",
-   "color": "#e0a020",
-   "cards": [],
-   "alive": true
-  }
- ],
- "owner": {
-  "greenland": 0,
-  "alberta": 1,
-  "scandinavia": 2,
-  "madagascar": 3,
-  "alaska": 0,
-  "mongolia": 1,
-  "argentina": 2,
-  "quebec": 3,
-  "ukraine": 0,
-  "new_guinea": 1,
-  "central_america": 2,
-  "eastern_australia": 3,
-  "yakutsk": 0,
-  "eastern_us": 1,
-  "ural": 2,
-  "ontario": 3,
-  "venezuela": 0,
-  "western_us": 1,
-  "south_africa": 2,
-  "peru": 3,
-  "irkutsk": 0,
-  "northwest_territory": 1,
-  "siam": 2,
-  "east_africa": 3,
-  "indonesia": 0,
-  "india": 1,
-  "congo": 2,
-  "china": 3,
-  "iceland": 0,
-  "middle_east": 1,
-  "japan": 2,
-  "brazil": 3,
-  "western_australia": 0,
-  "kamchatka": 1,
-  "siberia": 2,
-  "north_africa": 3,
-  "southern_europe": 0,
-  "western_europe": 1,
-  "northern_europe": 2,
-  "afghanistan": 3,
-  "egypt": 0,
-  "great_britain": 1
- },
  "armies": {
-  "greenland": 2,
-  "alberta": 4,
-  "scandinavia": 2,
-  "madagascar": 1,
-  "alaska": 1,
-  "mongolia": 4,
-  "argentina": 5,
-  "quebec": 6,
-  "ukraine": 1,
-  "new_guinea": 2,
-  "central_america": 3,
-  "eastern_australia": 2,
-  "yakutsk": 1,
-  "eastern_us": 2,
-  "ural": 4,
-  "ontario": 3,
-  "venezuela": 2,
-  "western_us": 1,
-  "south_africa": 3,
-  "peru": 3,
-  "irkutsk": 3,
-  "northwest_territory": 5,
-  "siam": 3,
-  "east_africa": 1,
-  "indonesia": 3,
-  "india": 4,
-  "congo": 4,
-  "china": 3,
-  "iceland": 2,
-  "middle_east": 2,
-  "japan": 1,
-  "brazil": 5,
-  "western_australia": 6,
-  "kamchatka": 2,
-  "siberia": 2,
-  "north_africa": 3,
-  "southern_europe": 2,
-  "western_europe": 2,
-  "northern_europe": 3,
   "afghanistan": 3,
+  "alaska": 1,
+  "alberta": 3,
+  "argentina": 1,
+  "brazil": 1,
+  "central_america": 3,
+  "china": 3,
+  "congo": 1,
+  "east_africa": 3,
+  "eastern_australia": 2,
+  "eastern_us": 1,
   "egypt": 7,
-  "great_britain": 2
+  "great_britain": 2,
+  "greenland": 3,
+  "iceland": 2,
+  "india": 4,
+  "indonesia": 5,
+  "irkutsk": 3,
+  "japan": 1,
+  "kamchatka": 2,
+  "madagascar": 1,
+  "middle_east": 2,
+  "mongolia": 4,
+  "new_guinea": 2,
+  "north_africa": 3,
+  "northern_europe": 3,
+  "northwest_territory": 3,
+  "ontario": 3,
+  "peru": 2,
+  "quebec": 3,
+  "scandinavia": 2,
+  "siam": 3,
+  "siberia": 2,
+  "south_africa": 3,
+  "southern_europe": 2,
+  "ukraine": 3,
+  "ural": 1,
+  "venezuela": 3,
+  "western_australia": 1,
+  "western_europe": 2,
+  "western_us": 3,
+  "yakutsk": 1
  },
- "turn": 1,
- "current": 0,
- "phase": "reinforce",
- "pending": 3,
  "conquered": false,
  "conquest": null,
- "tradeCount": 0,
+ "createdAt": "2026-10-04T08:37:12.619Z",
+ "current": 0,
  "deck": [
   {
-   "territory": "ural",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "ural"
   },
   {
-   "territory": "siberia",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "siberia"
   },
   {
-   "territory": null,
-   "symbol": "wild"
+   "symbol": "wild",
+   "territory": null
   },
   {
-   "territory": null,
-   "symbol": "wild"
+   "symbol": "wild",
+   "territory": null
   },
   {
-   "territory": "western_australia",
-   "symbol": "cavalry"
+   "symbol": "cavalry",
+   "territory": "western_australia"
   },
   {
-   "territory": "yakutsk",
-   "symbol": "cavalry"
+   "symbol": "cavalry",
+   "territory": "yakutsk"
   },
   {
-   "territory": "egypt",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "egypt"
   },
   {
-   "territory": "great_britain",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "great_britain"
   },
   {
-   "territory": "kamchatka",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "kamchatka"
   },
   {
-   "territory": "new_guinea",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "new_guinea"
   },
   {
-   "territory": "north_africa",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "north_africa"
   },
   {
-   "territory": "central_america",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "central_america"
   },
   {
-   "territory": "ontario",
-   "symbol": "cavalry"
+   "symbol": "cavalry",
+   "territory": "ontario"
   },
   {
-   "territory": "japan",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "japan"
   },
   {
-   "territory": "peru",
-   "symbol": "cavalry"
+   "symbol": "cavalry",
+   "territory": "peru"
   },
   {
-   "territory": "afghanistan",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "afghanistan"
   },
   {
-   "territory": "iceland",
-   "symbol": "cavalry"
+   "symbol": "cavalry",
+   "territory": "iceland"
   },
   {
-   "territory": "south_africa",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "south_africa"
   },
   {
-   "territory": "india",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "india"
   },
   {
-   "territory": "western_europe",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "western_europe"
   },
   {
-   "territory": "alaska",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "alaska"
   },
   {
-   "territory": "brazil",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "brazil"
   },
   {
-   "territory": "china",
-   "symbol": "cavalry"
+   "symbol": "cavalry",
+   "territory": "china"
   },
   {
-   "territory": "argentina",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "argentina"
   },
   {
-   "territory": "northern_europe",
-   "symbol": "cavalry"
+   "symbol": "cavalry",
+   "territory": "northern_europe"
   },
   {
-   "territory": "eastern_us",
-   "symbol": "cavalry"
+   "symbol": "cavalry",
+   "territory": "eastern_us"
   },
   {
-   "territory": "siam",
-   "symbol": "cavalry"
+   "symbol": "cavalry",
+   "territory": "siam"
   },
   {
-   "territory": "middle_east",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "middle_east"
   },
   {
-   "territory": "madagascar",
-   "symbol": "cavalry"
+   "symbol": "cavalry",
+   "territory": "madagascar"
   },
   {
-   "territory": "congo",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "congo"
   },
   {
-   "territory": "scandinavia",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "scandinavia"
   },
   {
-   "territory": "east_africa",
-   "symbol": "cavalry"
+   "symbol": "cavalry",
+   "territory": "east_africa"
   },
   {
-   "territory": "greenland",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "greenland"
   },
   {
-   "territory": "western_us",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "western_us"
   },
   {
-   "territory": "eastern_australia",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "eastern_australia"
   },
   {
-   "territory": "venezuela",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "venezuela"
   },
   {
-   "territory": "quebec",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "quebec"
   },
   {
-   "territory": "indonesia",
-   "symbol": "artillery"
+   "symbol": "artillery",
+   "territory": "indonesia"
   },
   {
-   "territory": "southern_europe",
-   "symbol": "infantry"
+   "symbol": "infantry",
+   "territory": "southern_europe"
   },
   {
-   "territory": "irkutsk",
-   "symbol": "infantry"
-  },
-  {
-   "territory": "alberta",
-   "symbol": "infantry"
-  },
-  {
-   "territory": "ukraine",
-   "symbol": "cavalry"
-  },
-  {
-   "territory": "northwest_territory",
-   "symbol": "cavalry"
-  },
-  {
-   "territory": "mongolia",
-   "symbol": "cavalry"
+   "symbol": "infantry",
+   "territory": "irkutsk"
   }
  ],
  "discard": [],
  "lastBattle": null,
  "log": [
   {
-   "turn": 1,
    "player": 0,
-   "text": "Game started with 4 players (seed 3)."
+   "text": "Game started with 4 players (seed 3).",
+   "turn": 1
+  },
+  {
+   "player": 0,
+   "text": "You's turn: 3 reinforcements.",
+   "turn": 1
+  },
+  {
+   "player": 0,
+   "text": "You placed 1 on Venezuela.",
+   "turn": 1
+  },
+  {
+   "player": 0,
+   "text": "You placed 1 on Indonesia.",
+   "turn": 1
+  },
+  {
+   "player": 0,
+   "text": "You placed 1 on Indonesia.",
+   "turn": 1
+  },
+  {
+   "player": 0,
+   "text": "You moved 2 into Eastern Australia.",
+   "turn": 1
+  },
+  {
+   "player": 0,
+   "text": "You earned a card.",
+   "turn": 1
+  },
+  {
+   "player": 1,
+   "text": "Claude's turn: 3 reinforcements.",
+   "turn": 1
   },
   {
    "turn": 1,
+   "player": 1,
+   "text": "Claude placed 3 on Northwest Territory."
+  },
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "Claude attacked Alaska from Alberta: lost 0, killed 1 and CONQUERED it."
+  },
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "Claude moved 3 into Alaska."
+  },
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "Claude attacked Greenland from Northwest Territory: lost 2, killed 2 and CONQUERED it."
+  },
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "Claude moved 3 into Greenland."
+  },
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "Claude fortified Alberta with 2 from Alaska."
+  },
+  {
+   "turn": 1,
+   "player": 1,
+   "text": "Claude earned a card."
+  },
+  {
+   "turn": 1,
+   "player": 2,
+   "text": "General Ash's turn: 3 reinforcements."
+  },
+  {
+   "turn": 1,
+   "player": 2,
+   "text": "General Ash placed 3 on Ural."
+  },
+  {
+   "turn": 1,
+   "player": 2,
+   "text": "General Ash conquered Ukraine from Ural (defender had 1)."
+  },
+  {
+   "turn": 1,
+   "player": 2,
+   "text": "General Ash conquered East Africa from Congo (defender had 1)."
+  },
+  {
+   "turn": 1,
+   "player": 2,
+   "text": "General Ash earned a card."
+  },
+  {
+   "turn": 1,
+   "player": 3,
+   "text": "Marshal Ivo's turn: 3 reinforcements."
+  },
+  {
+   "turn": 1,
+   "player": 3,
+   "text": "Marshal Ivo placed 3 on Quebec."
+  },
+  {
+   "turn": 1,
+   "player": 3,
+   "text": "Marshal Ivo conquered Eastern US from Quebec (defender had 2)."
+  },
+  {
+   "turn": 1,
+   "player": 3,
+   "text": "Marshal Ivo conquered Western US from Eastern US (defender had 1)."
+  },
+  {
+   "turn": 1,
+   "player": 3,
+   "text": "Marshal Ivo earned a card."
+  },
+  {
+   "turn": 2,
    "player": 0,
    "text": "You's turn: 3 reinforcements."
   }
  ],
- "winner": null,
- "createdAt": "2026-10-04T08:37:12.619Z",
- "rev": 1,
- "updatedAt": "2026-10-04T08:37:12.619Z"
+ "owner": {
+  "afghanistan": 3,
+  "alaska": 1,
+  "alberta": 1,
+  "argentina": 2,
+  "brazil": 3,
+  "central_america": 2,
+  "china": 3,
+  "congo": 2,
+  "east_africa": 2,
+  "eastern_australia": 0,
+  "eastern_us": 3,
+  "egypt": 0,
+  "great_britain": 1,
+  "greenland": 1,
+  "iceland": 0,
+  "india": 1,
+  "indonesia": 0,
+  "irkutsk": 0,
+  "japan": 2,
+  "kamchatka": 1,
+  "madagascar": 3,
+  "middle_east": 1,
+  "mongolia": 1,
+  "new_guinea": 1,
+  "north_africa": 3,
+  "northern_europe": 2,
+  "northwest_territory": 1,
+  "ontario": 3,
+  "peru": 3,
+  "quebec": 3,
+  "scandinavia": 2,
+  "siam": 2,
+  "siberia": 2,
+  "south_africa": 2,
+  "southern_europe": 0,
+  "ukraine": 2,
+  "ural": 2,
+  "venezuela": 0,
+  "western_australia": 0,
+  "western_europe": 1,
+  "western_us": 3,
+  "yakutsk": 0
+ },
+ "pending": 3,
+ "phase": "reinforce",
+ "players": [
+  {
+   "alive": true,
+   "cards": [
+    {
+     "symbol": "cavalry",
+     "territory": "mongolia"
+    }
+   ],
+   "color": "#e04848",
+   "id": 0,
+   "name": "You",
+   "type": "human"
+  },
+  {
+   "alive": true,
+   "cards": [
+    {
+     "symbol": "cavalry",
+     "territory": "northwest_territory"
+    }
+   ],
+   "color": "#3a7bd5",
+   "id": 1,
+   "name": "Claude",
+   "type": "claude"
+  },
+  {
+   "alive": true,
+   "cards": [
+    {
+     "symbol": "cavalry",
+     "territory": "ukraine"
+    }
+   ],
+   "color": "#3fae5a",
+   "id": 2,
+   "name": "General Ash",
+   "type": "bot"
+  },
+  {
+   "alive": true,
+   "cards": [
+    {
+     "symbol": "infantry",
+     "territory": "alberta"
+    }
+   ],
+   "color": "#e0a020",
+   "id": 3,
+   "name": "Marshal Ivo",
+   "type": "bot"
+  }
+ ],
+ "rev": 17,
+ "rngState": 1361248537,
+ "seed": 3,
+ "tradeCount": 0,
+ "turn": 2,
+ "updatedAt": "2026-10-04T08:44:48.751Z",
+ "version": 1,
+ "winner": null
 }
