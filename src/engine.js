@@ -192,7 +192,7 @@ export function place(s, territory, count = 1) {
 }
 
 /** Roll one round of combat. Returns details of the dice. */
-export function attack(s, from, to, dice = 3) {
+export function attack(s, from, to, dice = 3, { quiet = false } = {}) {
   checkPhase(s, 'attack');
   checkTerritory(from);
   checkTerritory(to);
@@ -220,6 +220,9 @@ export function attack(s, from, to, dice = 3) {
     conquer(s, from, to, a, defenderId);
   }
   s.lastBattle = result;
+  if (!quiet) {
+    log(s, `${p.name} attacked ${name(to)} from ${name(from)}: ${ar.join('-')} vs ${dr.join('-')}, lost ${aLoss}, killed ${dLoss}${result.conquered ? ' and CONQUERED it' : ''}.`);
+  }
   return result;
 }
 
@@ -228,7 +231,7 @@ export function blitz(s, from, to, stopAt = 1) {
   const start = { a: s.armies[from], d: s.armies[to] };
   let r;
   do {
-    r = attack(s, from, to, 3);
+    r = attack(s, from, to, 3, { quiet: true });
   } while (!r.conquered && s.armies[from] > Math.max(1, stopAt));
   const summary = {
     from, to, conquered: r.conquered,

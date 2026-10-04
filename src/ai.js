@@ -90,7 +90,7 @@ function doAttacks(s) {
     const { from, to } = best;
     const startDef = s.armies[to];
     let r;
-    do r = attack(s, from, to, 3);
+    do r = attack(s, from, to, 3, { quiet: true });
     while (!r.conquered && s.armies[from] > 1 && s.armies[from] - 1 >= s.armies[to] * 0.6);
     if (r.conquered) {
       const c = s.conquest;
