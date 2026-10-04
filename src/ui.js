@@ -178,7 +178,7 @@ function renderMap(s) {
   const note = $('map-note');
   if (!myTurn()) note.textContent = s.winner === null ? `${E.currentPlayer(s).name} is moving…` : '';
   else if (s.phase === 'reinforce') note.textContent = 'Tap your territories to place armies.';
-  else if (s.phase === 'attack') note.textContent = ui.sel ? 'Pick a dashed enemy to attack, or another of your territories.' : 'Tap one of your territories with 2+ armies to attack from.';
+  else if (s.phase === 'attack') note.textContent = ui.sel ? 'Pick a dashed enemy to attack, or another of your territories.' : 'Tap one of your territories with 2+ armies to attack from. To move troops, press "Done attacking" first.';
   else if (s.phase === 'fortify') note.textContent = ui.sel ? 'Pick a connected territory to reinforce.' : 'Tap a territory to move armies from, or end your turn.';
   else note.textContent = '';
 }
@@ -241,7 +241,7 @@ function ordersHtml(s) {
     return `${ready ? `<p class="hint">${esc(tname(ui.sel))} (${s.armies[ui.sel]}) → ${esc(tname(ui.target))} (${s.armies[ui.target]})</p>` : ''}
       <div class="row"><button class="btn primary" data-a="roll" ${ready ? '' : 'disabled'}>Roll dice</button>
       <button class="btn" data-a="blitz" ${ready ? '' : 'disabled'}>Blitz</button>
-      <button class="btn" data-a="endattack">End attacks</button></div>${diceHtml(s.lastBattle)}${err}`;
+      <button class="btn" data-a="endattack">Done attacking: move troops</button></div>${diceHtml(s.lastBattle)}${err}`;
   }
   if (s.phase === 'conquer') {
     const c = s.conquest;
