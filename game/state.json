@@ -1,26 +1,26 @@
 {
  "armies": {
   "afghanistan": 2,
-  "alaska": 4,
-  "alberta": 2,
+  "alaska": 1,
+  "alberta": 3,
   "argentina": 1,
   "brazil": 1,
-  "central_america": 18,
-  "china": 2,
+  "central_america": 1,
+  "china": 4,
   "congo": 1,
   "east_africa": 5,
   "eastern_australia": 1,
-  "eastern_us": 5,
-  "egypt": 3,
+  "eastern_us": 7,
+  "egypt": 2,
   "great_britain": 1,
-  "greenland": 6,
+  "greenland": 3,
   "iceland": 4,
-  "india": 2,
+  "india": 1,
   "indonesia": 1,
-  "irkutsk": 5,
+  "irkutsk": 3,
   "japan": 1,
   "kamchatka": 3,
-  "madagascar": 3,
+  "madagascar": 1,
   "middle_east": 2,
   "mongolia": 5,
   "new_guinea": 1,
@@ -29,20 +29,21 @@
   "northwest_territory": 3,
   "ontario": 1,
   "peru": 1,
-  "quebec": 1,
+  "quebec": 4,
   "scandinavia": 1,
   "siam": 1,
   "siberia": 5,
   "south_africa": 1,
   "southern_europe": 1,
-  "ukraine": 2,
-  "ural": 2,
-  "venezuela": 1,
-  "western_australia": 1,
-  "western_europe": 3,
+  "ukraine": 3,
+  "ural": 11,
+  "venezuela": 3,
+  "western_australia": 3,
+  "western_europe": 6,
   "western_us": 3,
-  "yakutsk": 6
+  "yakutsk": 1
  },
+ "cardMode": "fixed",
  "conquered": false,
  "conquest": null,
  "createdAt": "2026-10-04T08:37:12.619Z",
@@ -67,22 +68,6 @@
   {
    "symbol": "cavalry",
    "territory": "western_australia"
-  },
-  {
-   "symbol": "cavalry",
-   "territory": "yakutsk"
-  },
-  {
-   "symbol": "infantry",
-   "territory": "egypt"
-  },
-  {
-   "symbol": "infantry",
-   "territory": "great_britain"
-  },
-  {
-   "symbol": "artillery",
-   "territory": "kamchatka"
   }
  ],
  "discard": [
@@ -181,6 +166,30 @@
   {
    "symbol": "artillery",
    "territory": "congo"
+  },
+  {
+   "symbol": "artillery",
+   "territory": "north_africa"
+  },
+  {
+   "symbol": "cavalry",
+   "territory": "peru"
+  },
+  {
+   "symbol": "infantry",
+   "territory": "india"
+  },
+  {
+   "symbol": "infantry",
+   "territory": "new_guinea"
+  },
+  {
+   "symbol": "infantry",
+   "territory": "south_africa"
+  },
+  {
+   "symbol": "infantry",
+   "territory": "alberta"
   }
  ],
  "lastBattle": null,
@@ -1526,36 +1535,206 @@
    "turn": 10
   },
   {
-   "turn": 10,
    "player": 0,
-   "text": "Card rules changed to fixed values: 3 infantry 4, 3 cavalry 6, 3 artillery 8, one of each 10."
+   "text": "Card rules changed to fixed values: 3 infantry 4, 3 cavalry 6, 3 artillery 8, one of each 10.",
+   "turn": 10
+  },
+  {
+   "player": 0,
+   "text": "You attacked Western US from Central America: lost 1, killed 3 and CONQUERED it.",
+   "turn": 10
+  },
+  {
+   "player": 0,
+   "text": "You moved 16 into Western US.",
+   "turn": 10
+  },
+  {
+   "player": 0,
+   "text": "You attacked Eastern US from Western US: lost 8, killed 5 and CONQUERED it.",
+   "turn": 10
+  },
+  {
+   "player": 0,
+   "text": "You moved 7 into Eastern US.",
+   "turn": 10
+  },
+  {
+   "player": 0,
+   "text": "You fortified Venezuela with 2 from Madagascar.",
+   "turn": 10
+  },
+  {
+   "player": 0,
+   "text": "You earned a card.",
+   "turn": 10
+  },
+  {
+   "player": 1,
+   "text": "Claude's turn: 3 reinforcements.",
+   "turn": 10
+  },
+  {
+   "turn": 10,
+   "player": 1,
+   "text": "Claude placed 3 on Alberta."
+  },
+  {
+   "turn": 10,
+   "player": 1,
+   "text": "Claude attacked Western US from Alberta: lost 0, killed 1 and CONQUERED it."
+  },
+  {
+   "turn": 10,
+   "player": 1,
+   "text": "Claude moved 3 into Western US."
+  },
+  {
+   "turn": 10,
+   "player": 1,
+   "text": "Claude fortified Quebec with 3 from Greenland."
+  },
+  {
+   "turn": 10,
+   "player": 1,
+   "text": "Claude earned a card."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash's turn: 8 reinforcements."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash traded cards for 10 armies (+2 on India)."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash placed 3 on Western Europe."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash placed 5 on Southern Europe."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash placed 1 on Ukraine."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash placed 9 on India."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash conquered Siam from India (defender had 1)."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash conquered Indonesia from Siam (defender had 1)."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash conquered New Guinea from Indonesia (defender had 1)."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash conquered Western Australia from New Guinea (defender had 1)."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash conquered Egypt from Southern Europe (defender had 3)."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash conquered China from India (defender had 2)."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash fortified China with 2 from Siam."
+  },
+  {
+   "turn": 10,
+   "player": 2,
+   "text": "General Ash earned a card."
+  },
+  {
+   "turn": 10,
+   "player": 3,
+   "text": "Marshal Ivo's turn: 3 reinforcements."
+  },
+  {
+   "turn": 10,
+   "player": 3,
+   "text": "Marshal Ivo traded cards for 4 armies."
+  },
+  {
+   "turn": 10,
+   "player": 3,
+   "text": "Marshal Ivo placed 7 on Yakutsk."
+  },
+  {
+   "turn": 10,
+   "player": 3,
+   "text": "Marshal Ivo conquered Irkutsk from Yakutsk (defender had 5)."
+  },
+  {
+   "turn": 10,
+   "player": 3,
+   "text": "Marshal Ivo conquered Alberta from Alaska (defender had 2)."
+  },
+  {
+   "turn": 10,
+   "player": 3,
+   "text": "Marshal Ivo fortified Ural with 9 from Yakutsk."
+  },
+  {
+   "turn": 10,
+   "player": 3,
+   "text": "Marshal Ivo earned a card."
+  },
+  {
+   "turn": 11,
+   "player": 0,
+   "text": "You's turn: 5 reinforcements."
   }
  ],
  "owner": {
   "afghanistan": 2,
   "alaska": 3,
-  "alberta": 1,
+  "alberta": 3,
   "argentina": 0,
   "brazil": 0,
   "central_america": 0,
-  "china": 3,
+  "china": 2,
   "congo": 0,
   "east_africa": 0,
   "eastern_australia": 1,
-  "eastern_us": 1,
-  "egypt": 0,
+  "eastern_us": 0,
+  "egypt": 2,
   "great_britain": 2,
   "greenland": 1,
   "iceland": 2,
   "india": 2,
-  "indonesia": 3,
-  "irkutsk": 0,
+  "indonesia": 2,
+  "irkutsk": 3,
   "japan": 3,
   "kamchatka": 3,
   "madagascar": 0,
   "middle_east": 2,
   "mongolia": 3,
-  "new_guinea": 3,
+  "new_guinea": 2,
   "north_africa": 0,
   "northern_europe": 2,
   "northwest_territory": 1,
@@ -1563,20 +1742,21 @@
   "peru": 0,
   "quebec": 1,
   "scandinavia": 2,
-  "siam": 3,
+  "siam": 2,
   "siberia": 3,
   "south_africa": 0,
   "southern_europe": 2,
   "ukraine": 2,
   "ural": 3,
   "venezuela": 0,
-  "western_australia": 3,
+  "western_australia": 2,
   "western_europe": 2,
   "western_us": 1,
   "yakutsk": 3
  },
- "pending": 0,
- "phase": "attack",
+ "pending": 5,
+ "phase": "reinforce",
+ "placements": [],
  "players": [
   {
    "alive": true,
@@ -1588,6 +1768,10 @@
     {
      "symbol": "cavalry",
      "territory": "ontario"
+    },
+    {
+     "symbol": "artillery",
+     "territory": "kamchatka"
     }
    ],
    "color": "#e04848",
@@ -1609,6 +1793,10 @@
     {
      "symbol": "artillery",
      "territory": "central_america"
+    },
+    {
+     "symbol": "infantry",
+     "territory": "great_britain"
     }
    ],
    "color": "#3a7bd5",
@@ -1621,15 +1809,7 @@
    "cards": [
     {
      "symbol": "infantry",
-     "territory": "india"
-    },
-    {
-     "symbol": "cavalry",
-     "territory": "peru"
-    },
-    {
-     "symbol": "artillery",
-     "territory": "north_africa"
+     "territory": "egypt"
     }
    ],
    "color": "#3fae5a",
@@ -1641,16 +1821,8 @@
    "alive": true,
    "cards": [
     {
-     "symbol": "infantry",
-     "territory": "alberta"
-    },
-    {
-     "symbol": "infantry",
-     "territory": "south_africa"
-    },
-    {
-     "symbol": "infantry",
-     "territory": "new_guinea"
+     "symbol": "cavalry",
+     "territory": "yakutsk"
     }
    ],
    "color": "#e0a020",
@@ -1659,14 +1831,12 @@
    "type": "bot"
   }
  ],
- "rev": 174,
- "rngState": -162433094,
+ "rev": 185,
+ "rngState": 14237897,
  "seed": 3,
- "tradeCount": 8,
- "turn": 10,
- "updatedAt": "2026-10-04T09:14:42.350Z",
+ "tradeCount": 10,
+ "turn": 11,
+ "updatedAt": "2026-10-04T09:17:44.794Z",
  "version": 1,
- "winner": null,
- "cardMode": "fixed",
- "placements": []
+ "winner": null
 }
