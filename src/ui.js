@@ -11,17 +11,48 @@ const BOT_NAMES = ['General Ash', 'Marshal Ivo', 'Admiral Rook', 'Captain Vex', 
 const BOT_DELAY = 650;
 
 const ui = {
-  mode: 'local', game: null, campaign: null, campaignError: '',
+  mode: 'local', game: null, campaign: null, campaignError: '', campaignSource: null,
+  canWrite: false, dbRef: null,
   sel: null, target: null, amount: 1, picked: new Set(), error: '', botTimer: null,
 };
+const CAMPAIGN_DOC = 'games/campaign';
 
 const esc = (v) => String(v).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 const tname = (t) => TERRITORIES[t].name;
 const active = () => (ui.mode === 'local' ? ui.game : ui.campaign);
-const myTurn = () => ui.mode === 'local' && ui.game && ui.game.winner === null && E.currentPlayer(ui.game).type === 'human';
+const canDrive = (s) => !!s && (s === ui.game || (s === ui.campaign && ui.canWrite));
+const humanUp = (s) => !!s && s.winner === null && E.currentPlayer(s).type === 'human';
+const myTurn = () => canDrive(active()) && humanUp(active());
 
-function save() {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify(ui.game)); } catch { /* storage unavailable */ }
+function saveGame(s) {
+  if (s === ui.game) {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(ui.game)); } catch { /* storage unavailable */ }
+  } else if (s === ui.campaign) {
+    s.rev = (s.rev || 0) + 1;
+    s.updatedAt = new Date().toISOString();
+    campaignDirty = true;
+    flushCampaign();
+  }
+}
+const save = () => saveGame(active());
+
+// One write at a time; actions made while a write is in flight coalesce into the next one.
+let campaignWriting = false;
+let campaignDirty = false;
+async function flushCampaign() {
+  if (campaignWriting || !campaignDirty || !ui.dbRef) return;
+  campaignWriting = true;
+  campaignDirty = false;
+  try {
+    await ui.dbRef.set({ state: JSON.parse(JSON.stringify(ui.campaign)) });
+  } catch (e) {
+    if (e?.code === 'invalid_argument' || e?.code === 'not_granted') ui.canWrite = false;
+    ui.campaignError = e?.code === 'quota_exceeded' ? 'The campaign could not be saved: storage is full.' : 'Your last move could not be saved. Reload the page to resync.';
+    render();
+  } finally {
+    campaignWriting = false;
+    flushCampaign();
+  }
 }
 function restore() {
   try {
@@ -34,7 +65,7 @@ function newGame(name = 'You', bots = 3) {
   const players = [{ name: name.trim() || 'You', type: 'human' }, ...BOT_NAMES.slice(0, bots).map((n) => ({ name: n, type: 'bot' }))];
   ui.game = E.createGame({ players });
   resetSelection();
-  save();
+  saveGame(ui.game);
   render();
   scheduleBots();
 }
@@ -58,16 +89,18 @@ function act(fn) {
   scheduleBots();
 }
 
+const botsUp = (s) => canDrive(s) && s.winner === null && E.currentPlayer(s).type === 'bot';
 function scheduleBots() {
-  if (ui.botTimer || !ui.game || ui.game.winner !== null || E.currentPlayer(ui.game).type === 'human') return;
+  if (ui.botTimer || ![ui.game, ui.campaign].some(botsUp)) return;
   ui.botTimer = setTimeout(() => {
     ui.botTimer = null;
-    if (ui.game.winner === null && E.currentPlayer(ui.game).type !== 'human') {
-      botTakeTurn(ui.game);
-      resetSelection();
-      save();
-      render();
+    for (const s of [ui.game, ui.campaign]) {
+      if (!botsUp(s)) continue;
+      botTakeTurn(s);
+      if (s === active()) resetSelection();
+      saveGame(s);
     }
+    render();
     scheduleBots();
   }, BOT_DELAY);
 }
@@ -143,8 +176,7 @@ function renderMap(s) {
     g.classList.toggle('hit', !!hit && hit.to === t && !targets.has(t) && ui.target !== t);
   }
   const note = $('map-note');
-  if (ui.mode === 'campaign') note.textContent = 'Spectating. Claude plays this seat from the command line.';
-  else if (!myTurn()) note.textContent = s.winner === null ? `${E.currentPlayer(s).name} is moving…` : '';
+  if (!myTurn()) note.textContent = s.winner === null ? `${E.currentPlayer(s).name} is moving…` : '';
   else if (s.phase === 'reinforce') note.textContent = 'Tap your territories to place armies.';
   else if (s.phase === 'attack') note.textContent = ui.sel ? 'Pick a dashed enemy to attack, or another of your territories.' : 'Tap one of your territories with 2+ armies to attack from.';
   else if (s.phase === 'fortify') note.textContent = ui.sel ? 'Pick a connected territory to reinforce.' : 'Tap a territory to move armies from, or end your turn.';
@@ -153,7 +185,7 @@ function renderMap(s) {
 
 function onTerritory(t) {
   if (!myTurn()) return;
-  const s = ui.game;
+  const s = active();
   const mine = s.owner[t] === s.current;
   if (s.phase === 'reinforce') {
     const n = ui.amount === 'all' ? s.pending : Math.min(ui.amount, s.pending);
@@ -189,8 +221,13 @@ function diceHtml(b) {
 
 function ordersHtml(s) {
   const p = E.currentPlayer(s);
-  if (s.winner !== null) return `<div class="banner">${esc(s.players[s.winner].name)} rules the world.</div>${ui.mode === 'local' ? '<div class="row"><button class="btn primary" data-a="new">Play again</button></div>' : ''}`;
-  if (!myTurn()) return `<p class="hint">${ui.mode === 'campaign' ? `Waiting for ${esc(p.name)} to take their turn.` : `${esc(p.name)} is on the move.`}</p>${diceHtml(s.lastBattle)}`;
+  if (s.winner !== null) return `<div class="banner">${esc(s.players[s.winner].name)} rules the world.</div>${ui.mode === 'local' ? '<div class="row"><button class="btn primary" data-a="new">Play again</button></div>' : '<p class="hint">Ask Claude in your session to start a rematch.</p>'}`;
+  if (!myTurn()) {
+    const wait = p.type === 'claude' ? 'Claude checks in every hour and plays its turn then. This page updates on its own.'
+      : p.type === 'human' ? 'Waiting for this seat to move. Only people with edit access can play it.'
+      : `${esc(p.name)} is on the move.`;
+    return `<p class="hint">${wait}</p>${diceHtml(s.lastBattle)}`;
+  }
   const err = ui.error ? `<p class="err" role="alert">${esc(ui.error)}</p>` : '';
   if (s.phase === 'reinforce') {
     const mustTrade = p.cards.length >= 5;
@@ -235,14 +272,15 @@ function playersHtml(s) {
 }
 
 function cardsHtml(s) {
-  const me = ui.mode === 'local' ? s.players.find((p) => p.type === 'human') : s.players.find((p) => p.type === 'claude');
+  const me = s.players.find((p) => p.type === 'human');
   if (!me) return '';
+  const interactive = canDrive(s);
   const canTrade = myTurn() && s.phase === 'reinforce' && ui.picked.size === 3;
-  const cards = me.cards.map((c, i) => `<button class="card" data-a="card" data-v="${i}" aria-pressed="${ui.picked.has(i)}" ${ui.mode === 'local' ? '' : 'disabled'}>
+  const cards = me.cards.map((c, i) => `<button class="card" data-a="card" data-v="${i}" aria-pressed="${ui.picked.has(i)}" ${interactive ? '' : 'disabled'}>
     <b>${c.symbol}</b>${c.territory ? esc(tname(c.territory)) : 'Any'}</button>`).join('');
-  return `<section class="panel"><div class="eyebrow">${ui.mode === 'local' ? 'Your cards' : "Claude's cards"} · next set worth ${E.tradeValue(s.tradeCount)}</div>
+  return `<section class="panel"><div class="eyebrow">Your cards · next set worth ${E.tradeValue(s.tradeCount)}</div>
     <div class="cards">${cards || '<span class="hint">No cards yet. Conquer a territory in a turn to earn one.</span>'}</div>
-    ${ui.mode === 'local' && me.cards.length >= 3 ? `<div class="row"><button class="btn" data-a="trade" ${canTrade ? '' : 'disabled'}>Trade selected</button><span class="hint">3 alike, 3 different, or any with a wild</span></div>` : ''}</section>`;
+    ${interactive && me.cards.length >= 3 ? `<div class="row"><button class="btn" data-a="trade" ${canTrade ? '' : 'disabled'}>Trade selected</button><span class="hint">3 alike, 3 different, or any with a wild</span></div>` : ''}</section>`;
 }
 
 function logHtml(s) {
@@ -257,17 +295,19 @@ function render() {
   const s = active();
   const side = $('side');
   if (!s) {
-    side.innerHTML = `<section class="panel"><p class="${ui.campaignError ? 'err' : 'hint'}">${esc(ui.campaignError || 'Loading Claude\'s campaign…')}</p>
-      <div class="row"><button class="btn" data-a="reload">Retry</button></div></section>`;
+    side.innerHTML = `<section class="panel"><div class="eyebrow">Campaign with Claude</div>
+      <p class="${ui.campaignError ? 'err' : 'hint'}">${esc(ui.campaignError || 'Loading the campaign…')}</p></section>`;
+    $('map-note').textContent = '';
     return;
   }
   const p = E.currentPlayer(s);
-  const updated = ui.mode === 'campaign' && s.updatedAt ? ` · updated ${new Date(s.updatedAt).toLocaleString()}` : '';
+  const updated = ui.mode === 'campaign' && s.updatedAt ? ` · saved ${new Date(s.updatedAt).toLocaleString()}` : '';
   side.innerHTML = `<section class="panel">
       <div class="eyebrow">Round ${s.turn}${updated}</div>
       <div class="who"><span class="dot" style="background:${p.color}"></span><strong>${esc(p.name)}</strong></div>
       ${phaseSteps(s)}${ordersHtml(s)}
-      ${ui.mode === 'campaign' ? '<div class="row"><button class="btn" data-a="reload">Refresh</button></div>' : ''}
+      ${ui.mode === 'campaign' && ui.campaignSource === 'file' ? '<div class="row"><button class="btn" data-a="reload">Refresh</button></div>' : ''}
+      ${ui.mode === 'campaign' && ui.campaignError ? `<p class="err">${esc(ui.campaignError)}</p>` : ''}
     </section>
     <section class="panel"><div class="eyebrow">Commanders</div>${playersHtml(s)}</section>
     ${cardsHtml(s)}${logHtml(s)}`;
@@ -277,9 +317,9 @@ function render() {
 function onSideClick(e) {
   const b = e.target.closest('[data-a]');
   if (!b || b.disabled) return;
-  const s = ui.game;
+  const s = active();
   const a = b.dataset.a;
-  if (a === 'reload') return loadCampaign();
+  if (a === 'reload') return loadCampaignFile();
   if (a === 'new') return openSetup();
   if (a === 'amt') { ui.amount = b.dataset.v === 'all' ? 'all' : Number(b.dataset.v); return render(); }
   if (a === 'card') {
@@ -307,8 +347,47 @@ function onSideInput(e) {
   if (e.target.id === 'fort-range') $('fort-n').textContent = e.target.value;
 }
 
-// ---------- campaign (Claude's persistent game) ----------
-async function loadCampaign() {
+// ---------- campaign (you vs Claude vs bots) ----------
+// On claude.ai the campaign lives in the artifact's shared database, which
+// Claude reads and writes on its turn. Elsewhere it falls back to the
+// read-only snapshot in game/state.json.
+function adoptCampaign(state) {
+  if (!state) return;
+  if (ui.campaign && (state.rev || 0) <= (ui.campaign.rev || 0)) return; // our own echo or stale
+  ui.campaign = JSON.parse(JSON.stringify(state));
+  if (ui.mode === 'campaign') resetSelection();
+  render();
+  scheduleBots();
+}
+
+async function connectCampaign() {
+  const db = await window.claude?.use?.('db');
+  if (!db) return loadCampaignFile();
+  const user = await window.claude.use('user');
+  const can = user ? await user.can('data.write') : null;
+  ui.canWrite = can !== false;
+  ui.campaignSource = 'db';
+  ui.dbRef = db.doc(CAMPAIGN_DOC);
+  ui.dbRef.onSnapshot(
+    (snap) => {
+      if (!snap.exists) {
+        ui.campaignError = 'No campaign yet. Ask Claude in your session to start one.';
+        if (ui.mode === 'campaign') render();
+        return;
+      }
+      ui.campaignError = '';
+      adoptCampaign(snap.data().state);
+    },
+    () => {
+      ui.campaignError = 'Lost the connection to the campaign. Reload the page to reconnect.';
+      render();
+    },
+  );
+}
+
+async function loadCampaignFile() {
+  ui.campaignSource = 'file';
+  ui.canWrite = false;
   ui.campaignError = '';
   try {
     const res = await fetch(`game/state.json?t=${Date.now()}`, { cache: 'no-store' });
@@ -316,7 +395,7 @@ async function loadCampaign() {
     ui.campaign = await res.json();
   } catch (e) {
     ui.campaign = null;
-    ui.campaignError = `Could not load Claude's campaign. ${e.message}`;
+    ui.campaignError = `Could not load the campaign. ${e.message}`;
   }
   if (ui.mode === 'campaign') render();
 }
@@ -331,21 +410,23 @@ function boot() {
   $('side').addEventListener('click', onSideClick);
   $('side').addEventListener('input', onSideInput);
   $('tab-local').addEventListener('click', () => { ui.mode = 'local'; resetSelection(); render(); });
-  $('tab-campaign').addEventListener('click', () => { ui.mode = 'campaign'; resetSelection(); render(); loadCampaign(); });
+  $('tab-campaign').addEventListener('click', () => { ui.mode = 'campaign'; resetSelection(); render(); });
   $('new-game').addEventListener('click', openSetup);
   $('setup-cancel').addEventListener('click', () => $('setup').close());
   $('setup-form').addEventListener('submit', (e) => {
     e.preventDefault();
     $('setup').close();
+    ui.mode = 'local';
     newGame($('cmd-name').value, Number($('cmd-bots').value));
   });
   window.claude?.hot?.snapshot?.(() => ({ game: ui.game, mode: ui.mode }));
   const hot = window.claude?.hot?.data;
   ui.game = hot?.game ?? restore();
-  if (location.hash === '#campaign') ui.mode = 'campaign';
-  else if (hot?.mode) ui.mode = hot.mode;
-  if (ui.game) { render(); scheduleBots(); } else newGame();
-  loadCampaign();
+  ui.mode = location.hash === '#solo' ? 'local' : hot?.mode ?? 'campaign';
+  if (!ui.game) newGame();
+  render();
+  scheduleBots();
+  connectCampaign();
 }
 
 if (window.claude?.hot?.ready) window.claude.hot.ready(boot);

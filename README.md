@@ -11,8 +11,10 @@ npm start          # serves the repo on http://localhost:8080
 
 Any static host works too (GitHub Pages, `python3 -m http.server`); ES modules need to be served over HTTP, so opening `index.html` from disk will not work.
 
-- **Your game**: you against 1–5 AI commanders. Saved in your browser automatically.
-- **Claude's campaign**: spectate the persistent game in `game/state.json`, where Claude holds a seat and plays its turns from the command line.
+- **Campaign vs Claude**: you, Claude and two AI bots in one shared game. You play your turns on the page; when you end
+  your turn the page plays the bots, and Claude takes its turn when it next checks in. On claude.ai the game lives in
+  the artifact's shared database (`games/campaign`); a local server shows the read-only mirror in `game/state.json`.
+- **Solo vs AI**: you against 1–5 AI commanders. Saved in your browser automatically.
 
 ## Rules (classic Risk, simplified setup)
 
@@ -38,6 +40,14 @@ node cli/risk.mjs blitz china india      # or: attack china india [dice]
 node cli/risk.mjs move 4
 node cli/risk.mjs endattack
 node cli/risk.mjs fortify ural china 3   # or: end
+```
+
+For the shared campaign, Claude pulls the database document, plays, and writes it back:
+
+```sh
+node cli/risk.mjs import games/campaign.json   # database document -> game/state.json
+node cli/risk.mjs status                         # ...play the turn...
+node cli/risk.mjs export /tmp/campaign.json      # game/state.json -> database document
 ```
 
 Territory names accept ids (`western_us`) or unique prefixes (`west`).

@@ -18,6 +18,7 @@ const [cmd, ...rest] = args;
 const load = () => JSON.parse(readFileSync(FILE, 'utf8'));
 const save = (s) => {
   mkdirSync(dirname(FILE), { recursive: true });
+  s.rev = (s.rev || 0) + 1;
   s.updatedAt = new Date().toISOString();
   writeFileSync(FILE, JSON.stringify(s, null, 1) + '\n');
 };
@@ -75,11 +76,23 @@ const HELP = `Usage: node cli/risk.mjs <command> [--file path]
   endattack                               go to the fortify phase
   fortify <from> <to> <n>                 move armies along your territories, ends turn
   end                                     end your turn (bots then play automatically)
-  bots                                    run bot turns until a non-bot seat is up`;
+  bots                                    run bot turns until a non-bot seat is up
+  import <doc.json>                       load the shared-database document ({state}) into the game file
+  export <doc.json>                       write the game file as a shared-database document ({state})`;
 
 try {
   if (!cmd || cmd === 'help') {
     console.log(HELP);
+  } else if (cmd === 'import') {
+    const doc = JSON.parse(readFileSync(rest[0], 'utf8'));
+    const state = doc.state ?? doc.data?.state;
+    if (!state?.players) throw new E.RuleError(`${rest[0]} has no game state`);
+    mkdirSync(dirname(FILE), { recursive: true });
+    writeFileSync(FILE, JSON.stringify(state, null, 1) + '\n');
+    console.log(status(state));
+  } else if (cmd === 'export') {
+    writeFileSync(rest[0], JSON.stringify({ state: load() }) + '\n');
+    console.log(`Wrote ${rest[0]}`);
   } else if (cmd === 'new') {
     if (existsSync(FILE) && !rest.includes('--force')) throw new E.RuleError(`${FILE} exists; add --force to overwrite`);
     const spec = (rest[0] || 'Claude:claude,Bot Alpha:bot,Bot Bravo:bot,Bot Charlie:bot').split(',');
