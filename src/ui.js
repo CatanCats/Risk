@@ -179,7 +179,7 @@ function renderMap(s) {
   if (!myTurn()) note.textContent = s.winner === null ? `${E.currentPlayer(s).name} is moving…` : '';
   else if (s.phase === 'reinforce') note.textContent = 'Tap your territories to place armies.';
   else if (s.phase === 'attack') note.textContent = ui.sel ? 'Pick a dashed enemy to attack, or another of your territories.' : 'Tap one of your territories with 2+ armies to attack from. To move troops, press "Done attacking" first.';
-  else if (s.phase === 'fortify') note.textContent = ui.sel ? 'Pick a connected territory to reinforce.' : 'Tap a territory to move armies from, or end your turn.';
+  else if (s.phase === 'fortify') note.textContent = ui.sel ? 'Pick a connected territory to reinforce. Tap the source again to change it.' : 'Tap a territory to move armies from, or end your turn.';
   else note.textContent = '';
 }
 
@@ -190,6 +190,10 @@ function onTerritory(t) {
   if (s.phase === 'reinforce') {
     const n = ui.amount === 'all' ? s.pending : Math.min(ui.amount, s.pending);
     return act(() => E.place(s, t, n));
+  }
+  if (t === ui.sel && (s.phase === 'attack' || s.phase === 'fortify')) {
+    resetSelection(); // tap the source again to start over
+    return render();
   }
   if (s.phase === 'attack') {
     if (mine) {
@@ -241,7 +245,8 @@ function ordersHtml(s) {
     return `${ready ? `<p class="hint">${esc(tname(ui.sel))} (${s.armies[ui.sel]}) → ${esc(tname(ui.target))} (${s.armies[ui.target]})</p>` : ''}
       <div class="row"><button class="btn primary" data-a="roll" ${ready ? '' : 'disabled'}>Roll dice</button>
       <button class="btn" data-a="blitz" ${ready ? '' : 'disabled'}>Blitz</button>
-      <button class="btn" data-a="endattack">Done attacking: move troops</button></div>${diceHtml(s.lastBattle)}${err}`;
+      <button class="btn" data-a="endattack">Done attacking: move troops</button>
+      ${ui.sel ? '<button class="btn" data-a="clear">Clear selection</button>' : ''}</div>${diceHtml(s.lastBattle)}${err}`;
   }
   if (s.phase === 'conquer') {
     const c = s.conquest;
@@ -257,7 +262,9 @@ function ordersHtml(s) {
     return `${ready ? `<p class="hint">${esc(tname(ui.sel))} → ${esc(tname(ui.target))}</p>
       <div class="row"><span class="big" id="fort-n">${max}</span><span class="hint">armies</span></div>
       <input type="range" id="fort-range" min="1" max="${max}" value="${max}" aria-label="Armies to move">` : ''}
+      ${ui.sel && !ready ? `<p class="hint">Moving from ${esc(tname(ui.sel))}. Tap where the troops should go.</p>` : ''}
       <div class="row"><button class="btn primary" data-a="fortify" ${ready ? '' : 'disabled'}>Fortify &amp; end turn</button>
+      ${ui.sel ? '<button class="btn" data-a="clear">Clear selection</button>' : ''}
       <button class="btn" data-a="end">End turn</button></div>${err}`;
   }
   return '';
@@ -331,6 +338,7 @@ function onSideClick(e) {
   if (a === 'trade') return act(() => { E.tradeCards(s, [...ui.picked]); ui.picked.clear(); });
   if (a === 'roll') return act(() => { E.attack(s, ui.sel, ui.target, 3); afterBattle(s); });
   if (a === 'blitz') return act(() => { E.blitz(s, ui.sel, ui.target, 1); afterBattle(s); });
+  if (a === 'clear') { resetSelection(); return render(); }
   if (a === 'endattack') return act(() => { E.endAttack(s); resetSelection(); });
   if (a === 'movein') return act(() => { E.moveIn(s, Number($('move-range').value)); ui.moveN = undefined; resetSelection(); });
   if (a === 'fortify') return act(() => { E.fortify(s, ui.sel, ui.target, Number($('fort-range').value)); resetSelection(); });

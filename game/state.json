@@ -3,17 +3,17 @@
   "afghanistan": 2,
   "alaska": 1,
   "alberta": 2,
-  "argentina": 1,
-  "brazil": 1,
-  "central_america": 5,
-  "china": 3,
+  "argentina": 3,
+  "brazil": 8,
+  "central_america": 1,
+  "china": 2,
   "congo": 1,
   "east_africa": 5,
   "eastern_australia": 1,
   "eastern_us": 1,
-  "egypt": 2,
-  "great_britain": 5,
-  "greenland": 3,
+  "egypt": 3,
+  "great_britain": 1,
+  "greenland": 6,
   "iceland": 4,
   "india": 2,
   "indonesia": 1,
@@ -21,27 +21,27 @@
   "japan": 1,
   "kamchatka": 2,
   "madagascar": 1,
-  "middle_east": 3,
+  "middle_east": 6,
   "mongolia": 3,
   "new_guinea": 1,
-  "north_africa": 1,
+  "north_africa": 5,
   "northern_europe": 2,
   "northwest_territory": 3,
   "ontario": 3,
   "peru": 1,
   "quebec": 1,
-  "scandinavia": 4,
+  "scandinavia": 1,
   "siam": 1,
-  "siberia": 2,
+  "siberia": 1,
   "south_africa": 1,
   "southern_europe": 2,
   "ukraine": 2,
   "ural": 2,
-  "venezuela": 17,
+  "venezuela": 1,
   "western_australia": 1,
   "western_europe": 3,
   "western_us": 1,
-  "yakutsk": 1
+  "yakutsk": 3
  },
  "conquered": false,
  "conquest": null,
@@ -99,22 +99,6 @@
   {
    "symbol": "cavalry",
    "territory": "ontario"
-  },
-  {
-   "symbol": "artillery",
-   "territory": "japan"
-  },
-  {
-   "symbol": "cavalry",
-   "territory": "peru"
-  },
-  {
-   "symbol": "infantry",
-   "territory": "afghanistan"
-  },
-  {
-   "symbol": "cavalry",
-   "territory": "iceland"
   }
  ],
  "discard": [
@@ -177,6 +161,18 @@
   {
    "symbol": "cavalry",
    "territory": "ukraine"
+  },
+  {
+   "symbol": "artillery",
+   "territory": "western_europe"
+  },
+  {
+   "symbol": "cavalry",
+   "territory": "east_africa"
+  },
+  {
+   "symbol": "infantry",
+   "territory": "venezuela"
   }
  ],
  "lastBattle": null,
@@ -1027,127 +1023,312 @@
    "turn": 7
   },
   {
-   "turn": 7,
    "player": 0,
-   "text": "You fortified Venezuela with 10 from East Africa (applied by Claude at your request)."
+   "text": "You fortified Venezuela with 10 from East Africa (applied by Claude at your request).",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 1,
-   "text": "Claude placed 3 on Eastern US."
+   "text": "Claude placed 3 on Eastern US.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 1,
-   "text": "Claude attacked Central America from Eastern US: lost 0, killed 3 and CONQUERED it."
+   "text": "Claude attacked Central America from Eastern US: lost 0, killed 3 and CONQUERED it.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 1,
-   "text": "Claude moved 3 into Central America."
+   "text": "Claude moved 3 into Central America.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 1,
-   "text": "Claude attacked Western US from Eastern US: lost 0, killed 2 and CONQUERED it."
+   "text": "Claude attacked Western US from Eastern US: lost 0, killed 2 and CONQUERED it.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 1,
-   "text": "Claude moved 3 into Western US."
+   "text": "Claude moved 3 into Western US.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 1,
-   "text": "Claude fortified Central America with 2 from Western US."
+   "text": "Claude fortified Central America with 2 from Western US.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 1,
-   "text": "Claude earned a card."
+   "text": "Claude earned a card.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 2,
-   "text": "General Ash's turn: 3 reinforcements."
+   "text": "General Ash's turn: 3 reinforcements.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 2,
-   "text": "General Ash traded cards for 12 armies (+2 on Ukraine)."
+   "text": "General Ash traded cards for 12 armies (+2 on Ukraine).",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 2,
-   "text": "General Ash placed 15 on Ukraine."
+   "text": "General Ash placed 15 on Ukraine.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 2,
-   "text": "General Ash conquered Northern Europe from Ukraine (defender had 1)."
+   "text": "General Ash conquered Northern Europe from Ukraine (defender had 1).",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 2,
-   "text": "General Ash conquered Great Britain from Northern Europe (defender had 2)."
+   "text": "General Ash conquered Great Britain from Northern Europe (defender had 2).",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 2,
-   "text": "General Ash conquered Scandinavia from Ukraine (defender had 2)."
+   "text": "General Ash conquered Scandinavia from Ukraine (defender had 2).",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 2,
-   "text": "General Ash earned a card."
+   "text": "General Ash earned a card.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 3,
-   "text": "Marshal Ivo's turn: 3 reinforcements."
+   "text": "Marshal Ivo's turn: 3 reinforcements.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 3,
-   "text": "Marshal Ivo placed 3 on Southern Europe."
+   "text": "Marshal Ivo placed 3 on Southern Europe.",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 3,
-   "text": "Marshal Ivo conquered North Africa from Southern Europe (defender had 1)."
+   "text": "Marshal Ivo conquered North Africa from Southern Europe (defender had 1).",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 3,
-   "text": "Marshal Ivo conquered Egypt from North Africa (defender had 1)."
+   "text": "Marshal Ivo conquered Egypt from North Africa (defender had 1).",
+   "turn": 7
   },
   {
-   "turn": 7,
    "player": 3,
-   "text": "Marshal Ivo earned a card."
+   "text": "Marshal Ivo earned a card.",
+   "turn": 7
+  },
+  {
+   "player": 0,
+   "text": "You's turn: 5 reinforcements.",
+   "turn": 8
+  },
+  {
+   "player": 0,
+   "text": "You placed 1 on East Africa.",
+   "turn": 8
+  },
+  {
+   "player": 0,
+   "text": "You placed 1 on East Africa.",
+   "turn": 8
+  },
+  {
+   "player": 0,
+   "text": "You placed 1 on East Africa.",
+   "turn": 8
+  },
+  {
+   "player": 0,
+   "text": "You placed 1 on East Africa.",
+   "turn": 8
+  },
+  {
+   "player": 0,
+   "text": "You placed 1 on East Africa.",
+   "turn": 8
+  },
+  {
+   "player": 0,
+   "text": "You attacked Egypt from East Africa: 5-2-1 vs 6-1, lost 1, killed 1.",
+   "turn": 8
+  },
+  {
+   "player": 0,
+   "text": "You attacked Egypt from East Africa: 3-3-1 vs 1, lost 0, killed 1 and CONQUERED it.",
+   "turn": 8
+  },
+  {
+   "player": 0,
+   "text": "You moved 8 into Egypt.",
+   "turn": 8
+  },
+  {
+   "player": 0,
+   "text": "You attacked North Africa from Egypt: 6-6-2 vs 3, lost 0, killed 1 and CONQUERED it.",
+   "turn": 8
+  },
+  {
+   "player": 0,
+   "text": "You moved 5 into North Africa.",
+   "turn": 8
   },
   {
    "turn": 8,
    "player": 0,
-   "text": "You's turn: 5 reinforcements."
+   "text": "You fortified East Africa with 4 from Venezuela."
+  },
+  {
+   "turn": 8,
+   "player": 0,
+   "text": "You earned a card."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude's turn: 9 reinforcements."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude traded cards for 15 armies."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude placed 3 on Greenland."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude placed 21 on Central America."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude attacked Venezuela from Central America: lost 10, killed 13 and CONQUERED it."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude moved 15 into Venezuela."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude attacked Brazil from Venezuela: lost 1, killed 1 and CONQUERED it."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude moved 10 into Brazil."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude attacked Peru from Venezuela: lost 0, killed 1 and CONQUERED it."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude moved 3 into Peru."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude attacked Argentina from Brazil: lost 1, killed 1 and CONQUERED it."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude moved 3 into Argentina."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude fortified Brazil with 2 from Peru."
+  },
+  {
+   "turn": 8,
+   "player": 1,
+   "text": "Claude earned a card."
+  },
+  {
+   "turn": 8,
+   "player": 2,
+   "text": "General Ash's turn: 3 reinforcements."
+  },
+  {
+   "turn": 8,
+   "player": 2,
+   "text": "General Ash placed 3 on Great Britain."
+  },
+  {
+   "turn": 8,
+   "player": 2,
+   "text": "General Ash conquered Iceland from Great Britain (defender had 4)."
+  },
+  {
+   "turn": 8,
+   "player": 2,
+   "text": "General Ash fortified Middle East with 3 from Scandinavia."
+  },
+  {
+   "turn": 8,
+   "player": 2,
+   "text": "General Ash earned a card."
+  },
+  {
+   "turn": 8,
+   "player": 3,
+   "text": "Marshal Ivo's turn: 3 reinforcements."
+  },
+  {
+   "turn": 8,
+   "player": 3,
+   "text": "Marshal Ivo placed 3 on China."
+  },
+  {
+   "turn": 8,
+   "player": 3,
+   "text": "Marshal Ivo conquered Siberia from China (defender had 2)."
+  },
+  {
+   "turn": 8,
+   "player": 3,
+   "text": "Marshal Ivo conquered Yakutsk from Siberia (defender had 1)."
+  },
+  {
+   "turn": 8,
+   "player": 3,
+   "text": "Marshal Ivo earned a card."
+  },
+  {
+   "turn": 9,
+   "player": 0,
+   "text": "You's turn: 6 reinforcements."
   }
  ],
  "owner": {
   "afghanistan": 3,
   "alaska": 1,
   "alberta": 1,
-  "argentina": 0,
-  "brazil": 0,
+  "argentina": 1,
+  "brazil": 1,
   "central_america": 1,
   "china": 3,
   "congo": 0,
   "east_africa": 0,
   "eastern_australia": 1,
   "eastern_us": 1,
-  "egypt": 3,
+  "egypt": 0,
   "great_britain": 2,
   "greenland": 1,
-  "iceland": 3,
+  "iceland": 2,
   "india": 2,
   "indonesia": 3,
   "irkutsk": 0,
@@ -1157,26 +1338,26 @@
   "middle_east": 2,
   "mongolia": 1,
   "new_guinea": 3,
-  "north_africa": 3,
+  "north_africa": 0,
   "northern_europe": 2,
   "northwest_territory": 1,
   "ontario": 1,
-  "peru": 0,
+  "peru": 1,
   "quebec": 1,
   "scandinavia": 2,
   "siam": 3,
-  "siberia": 2,
+  "siberia": 3,
   "south_africa": 0,
   "southern_europe": 3,
   "ukraine": 2,
   "ural": 3,
-  "venezuela": 0,
+  "venezuela": 1,
   "western_australia": 3,
   "western_europe": 2,
   "western_us": 1,
-  "yakutsk": 0
+  "yakutsk": 3
  },
- "pending": 5,
+ "pending": 6,
  "phase": "reinforce",
  "players": [
   {
@@ -1193,6 +1374,10 @@
     {
      "symbol": "infantry",
      "territory": "alaska"
+    },
+    {
+     "symbol": "cavalry",
+     "territory": "iceland"
     }
    ],
    "color": "#e04848",
@@ -1205,19 +1390,11 @@
    "cards": [
     {
      "symbol": "infantry",
-     "territory": "venezuela"
-    },
-    {
-     "symbol": "cavalry",
-     "territory": "east_africa"
-    },
-    {
-     "symbol": "infantry",
      "territory": "argentina"
     },
     {
-     "symbol": "artillery",
-     "territory": "western_europe"
+     "symbol": "infantry",
+     "territory": "afghanistan"
     }
    ],
    "color": "#3a7bd5",
@@ -1231,6 +1408,10 @@
     {
      "symbol": "infantry",
      "territory": "india"
+    },
+    {
+     "symbol": "cavalry",
+     "territory": "peru"
     }
    ],
    "color": "#3fae5a",
@@ -1256,6 +1437,10 @@
     {
      "symbol": "infantry",
      "territory": "south_africa"
+    },
+    {
+     "symbol": "artillery",
+     "territory": "japan"
     }
    ],
    "color": "#e0a020",
@@ -1264,12 +1449,12 @@
    "type": "bot"
   }
  ],
- "rev": 123,
- "rngState": 435766579,
+ "rev": 147,
+ "rngState": 1180332043,
  "seed": 3,
- "tradeCount": 5,
- "turn": 8,
- "updatedAt": "2026-10-04T09:02:04.057Z",
+ "tradeCount": 6,
+ "turn": 9,
+ "updatedAt": "2026-10-04T09:05:55.638Z",
  "version": 1,
  "winner": null
 }
